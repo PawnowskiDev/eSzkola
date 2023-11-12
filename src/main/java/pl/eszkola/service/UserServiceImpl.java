@@ -7,7 +7,7 @@ import pl.eszkola.repository.UserRepository;
 
 import java.util.Optional;
 @Service
-public class UserServiceImpl extends UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -16,8 +16,9 @@ public class UserServiceImpl extends UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Override
-    public void registerUser(User user) {
+    public void reqisterUser(User user) {
         Optional<User> existinguser = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
         if (existinguser.isPresent()) {
             throw new RuntimeException("User with this email already exist");
