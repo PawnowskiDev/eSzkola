@@ -1,33 +1,29 @@
 package pl.eszkola.service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.User;
 import pl.eszkola.repository.UserRepository;
 
-import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void reqisterUser(User user) {
-        Optional<User> existinguser = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
-        if (existinguser.isPresent()) {
-            throw new RuntimeException("User with this email already exist");
-        }
+    public void registrationUser(User user) {
 
-        // kodowanie hasla
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    }
+    @Override
+    public User getUserByFullName(String name, String surname) {
+        return userRepository.findByNameAndSurname(name, surname);
+    }
 
-        // zapisyawnie
-        userRepository.save(user);
+    @Override
+    public User getUserByPesel (String email) {
+        return userRepository.findByEmail(email);
     }
 }
