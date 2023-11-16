@@ -14,16 +14,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registrationUser(User user) {
+    public void registerUser(User user) {
 
-    }
-    @Override
-    public User getUserByFullName(String name, String surname) {
-        return userRepository.findByNameAndSurname(name, surname);
     }
 
     @Override
-    public User getUserByPesel (String email) {
-        return userRepository.findByEmail(email);
+    public User getUserByEmail(String email) {
+        return null;
     }
 }

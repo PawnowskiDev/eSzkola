@@ -1,18 +1,19 @@
 package pl.eszkola.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BCryptPasswordService implements PasswordService {
 
-    private final BCryptPasswordService passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public BCryptPasswordService(BCryptPasswordService passwordEncoder) {
+    public BCryptPasswordService(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public String encodePassword (String rawPassword) {
-        return passwordEncoder.encodePassword(rawPassword);
+        return passwordEncoder.encode(rawPassword);
     }
 }
