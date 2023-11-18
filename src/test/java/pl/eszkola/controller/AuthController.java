@@ -40,16 +40,20 @@ public class AuthController {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping
     public String loginUser(@RequestParam String email, @RequestParam String password) {
         User user = userService.getUserByEmail(email);
 
         if (user!= null && passwordEncoder.matches(password, user.getPassword())) {
 
-            return "redirect:/eszkola/";
+            return "redirect:/dashboard";
 
         } else {
             return "redirect:/login?error";
         }
+
+
     }
+
+
 }

@@ -8,4 +8,6 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    boolean isPasswordValid(String password);
+
 }

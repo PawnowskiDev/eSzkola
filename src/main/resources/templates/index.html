@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,8 +50,14 @@
 <body>
 
 <header>
-    <button>Rejestracja</button>
-    <button>Logowanie</button>
+    <a th:if="${user == null}" href="login.html" class="button"></a>
+    <button th:if="${user == null}">Logowanie</button>
+
+    <a th:if="${user == null}" href="register.html" class="button"></a>
+    <button th:if="${user == null}">Rejestracja</button>
+
+    <button th:if="${user != null}">Wyloguj</button>
+    <button th:if="${user != null}">Menu</button>
 </header>
 
 <nav>

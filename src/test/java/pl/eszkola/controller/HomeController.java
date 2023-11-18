@@ -3,32 +3,24 @@ package pl.eszkola.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+
 
 @Controller
 public class HomeController {
 
-    @GetMapping("/eszkola/")
+    @RequestMapping("/eszkola/")
     public String eszkola(Model model) {
-        // Pobierz informacje o zalogowanym użytkowniku
+        // pobieranie informacji o zalogowanym uzytkowniku
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        // Przekaż informacje do widoku
+        // przekazanie informacji do widoku
         model.addAttribute("username", username);
-
         return "index";
-    }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/eszkola/";
     }
 }
-
