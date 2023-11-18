@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>eszkola</artifactId>
@@ -15,12 +15,16 @@
 	<description>eszkola</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-security.version>5.7.0</spring-security.version>
+		<spring-security.version>6.1.5</spring-security.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.yaml</groupId>
@@ -93,6 +97,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
+			<version>6.1.5</version>
 		</dependency>
 
 		<dependency>
@@ -126,28 +131,25 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
-					</image>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<path>/eszkola</path>
-					<port>8080</port>
-				</configuration>
+				<version>3.1.5</version>
+<!--				<configuration>-->
+<!--					<image>-->
+<!--						<builder>paketobuildpacks/builder-jammy-base:latest</builder>-->
+<!--					</image>-->
+<!--					<excludes>-->
+<!--						<exclude>-->
+<!--							<groupId>org.projectlombok</groupId>-->
+<!--							<artifactId>lombok</artifactId>-->
+<!--						</exclude>-->
+<!--					</excludes>-->
+<!--				</configuration>-->
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
 
 </project>

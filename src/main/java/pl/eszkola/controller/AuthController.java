@@ -30,7 +30,6 @@ public class AuthController {
     public String registerUser(@ModelAttribute User user) {
         // kodowanie hasła przed zapisaniem użytkownika
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userService.registerUser(user);
         return "redirect:/auth/login";
     }
