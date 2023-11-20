@@ -10,4 +10,7 @@ public interface UserService {
 
     boolean isPasswordValid(String password);
 
+    void giveRating(Long userId, String note);
+
+    void giveNote(Long userId, String note);
 }
