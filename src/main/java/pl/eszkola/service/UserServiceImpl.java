@@ -1,11 +1,17 @@
 package pl.eszkola.service;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.eszkola.model.Grades;
 import pl.eszkola.model.User;
+import pl.eszkola.repository.GradesRepository;
+import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.repository.UserRepository;
+
+import javax.security.auth.Subject;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -13,10 +19,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Getter
     private final PasswordEncoder passwordEncoder;
+    private final SubjectRepository subjectRepository;
+    private final GradesRepository gradesRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService, SubjectRepository subjectRepository, GradesRepository gradesRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordService;
+        this.subjectRepository = subjectRepository;
+        this.gradesRepository = gradesRepository;
     }
 
     @Override
@@ -105,6 +115,37 @@ public class UserServiceImpl implements UserService {
 
         // Zapisujemy zaktualizowanego użytkownika
         userRepository.save(existingUser);
+    }
+
+    @Override
+    public void giveGradeAndNote(Long studentId, Long subjectId, String note, double grade) {
+        // Sprawdzamy, czy student istnieje
+        User student = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + studentId));
+
+        // Sprawdzamy, czy przedmiot istnieje
+        Subject subject = subjectRepository.findById(String.valueOf(subjectId))
+                .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + subjectId));
+
+        // Sprawdzamy, czy ocena mieści się w zakresie
+        if (grade < 1 || grade > 6) {
+            throw new IllegalArgumentException("Grade must be between 1 and 6");
+        }
+
+        // Sprawdzamy, czy notatka nie jest pusta
+        if (StringUtils.isEmpty(note)) {
+            throw new IllegalArgumentException("Note cannot be empty");
+        }
+
+        // Tworzymy nową ocenę
+        Grades newGrade = new Grades();
+        newGrade.setUser(student);
+        // newGrade.setSubject(subject); do naprawienia
+        newGrade.setGrade(grade);
+        newGrade.setNote(note);
+
+        // Zapisujemy ocenę
+        gradesRepository.save(newGrade);
     }
 
 }

@@ -19,4 +19,6 @@ public interface UserService {
     void deleteUser(Long userId);
 
     void updateUser(Long userId, User updatedUser);
+
+    void giveGradeAndNote(Long studentId, Long subjectid, String note, double grade);
 }
