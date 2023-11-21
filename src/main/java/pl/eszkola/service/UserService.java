@@ -6,11 +6,17 @@ public interface UserService {
 
     void registerUser(User user);
 
+    boolean checkIfUserExist(String email);
+
     User getUserByEmail(String email);
 
     boolean isPasswordValid(String password);
 
-    void giveRating(Long userId, String note);
+    void updateUserInfo(Long userId, String address, String phone1, String phone2);
 
-    void giveNote(Long userId, String note);
+    void addUser(User user);
+
+    void deleteUser(Long userId);
+
+    void updateUser(Long userId, User updatedUser);
 }

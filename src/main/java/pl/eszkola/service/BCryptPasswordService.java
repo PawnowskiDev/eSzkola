@@ -1,10 +1,11 @@
 package pl.eszkola.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BCryptPasswordService implements PasswordService {
+public class BCryptPasswordService implements PasswordEncoder {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -13,12 +14,12 @@ public class BCryptPasswordService implements PasswordService {
     }
 
     @Override
-    public String encodePassword (String rawPassword) {
+    public String encode (CharSequence rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
 
     @Override
-    public boolean matches(String rawPassword, String encodedPassword) {
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }

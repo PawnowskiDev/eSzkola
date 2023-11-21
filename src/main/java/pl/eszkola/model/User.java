@@ -11,7 +11,7 @@ public class User {
     private Long user_id;
     private String name;
     private String surname;
-    private String adress;
+    private String address;
     private String pesel;
     private String phone1;
     private String phone2;
@@ -34,8 +34,8 @@ public class User {
         return surname;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public String getPesel() {
@@ -86,8 +86,8 @@ public class User {
         this.surname = surname;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     public void setPesel(String pesel) {
