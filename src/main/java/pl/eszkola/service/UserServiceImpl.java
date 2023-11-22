@@ -2,16 +2,18 @@ package pl.eszkola.service;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.eszkola.model.Attendance;
 import pl.eszkola.model.Grades;
 import pl.eszkola.model.User;
+import pl.eszkola.repository.AttendanceRepository;
 import pl.eszkola.repository.GradesRepository;
 import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.repository.UserRepository;
 
 import javax.security.auth.Subject;
+import java.time.LocalDate;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,12 +22,14 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final SubjectRepository subjectRepository;
     private final GradesRepository gradesRepository;
+    private final AttendanceRepository attendanceRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService, SubjectRepository subjectRepository, GradesRepository gradesRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService, SubjectRepository subjectRepository, GradesRepository gradesRepository, AttendanceRepository attendanceRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordService;
         this.subjectRepository = subjectRepository;
         this.gradesRepository = gradesRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
 
@@ -92,6 +96,16 @@ public class UserServiceImpl implements UserService {
         // Zapisujemy ocenę
         gradesRepository.save(newGrade);
     }
+
+    @Override
+    public boolean checkAttendance (Long userId, Long classId, LocalDate date) {
+        // sprawdzamy czy istnieje rekord dla obecnosci uzytkownika danej klasy w danym dniu
+        Attendance attendanceRecord = attendanceRepository.findByUserIdAndClassIdAndDate(userId, classId, date);
+
+        // zwracamy true, jezeli uzytkownik był obecny
+        return attendanceRecord != null && attendanceRecord.isPresent();
+    }
+
 
     @Override
     public User getUserByPESEL(String pesel) {

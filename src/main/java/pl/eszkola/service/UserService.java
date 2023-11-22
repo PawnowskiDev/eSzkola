@@ -2,6 +2,8 @@ package pl.eszkola.service;
 
 import pl.eszkola.model.User;
 
+import java.time.LocalDate;
+
 public interface UserService {
 
     boolean isPasswordValid(String password);
@@ -15,6 +17,8 @@ public interface UserService {
     void updateUser(Long userId, User updatedUser);
 
     void giveGradeAndNote(Long studentId, Long subjectid, String note, double grade);
+
+    boolean checkAttendance (Long userId, Long classId, LocalDate date);
 
     User getUserByPESEL(String pesel);
 }
