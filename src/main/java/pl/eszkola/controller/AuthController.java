@@ -20,19 +20,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/register")
-    public String showRegistrationForm (Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
 
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-        // kodowanie hasła przed zapisaniem użytkownika
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.registerUser(user);
-        return "redirect:/auth/login";
-    }
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -40,8 +28,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam String email, @RequestParam String password) {
-        User user = userService.getUserByEmail(email);
+    public String loginUser(@RequestParam String pesel, @RequestParam String password) {
+        User user = userService.getUserByPESEL(pesel);
 
         if (user!= null && passwordEncoder.matches(password, user.getPassword())) {
 

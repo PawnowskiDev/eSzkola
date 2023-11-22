@@ -2,6 +2,8 @@ package pl.eszkola.model;
 
 import jakarta.persistence.*;
 
+import javax.security.auth.Subject;
+
 @Entity
 @Table(name = "grades")
 public class Grades {
@@ -49,5 +51,8 @@ public class Grades {
 
     public void setGrade(double grade) {
         this.grade = grade;
+    }
+
+    public void setSubject(Subject subject) {
     }
 }
