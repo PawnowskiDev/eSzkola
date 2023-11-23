@@ -1,6 +1,9 @@
 package pl.eszkola.model;
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "user")
@@ -15,8 +18,9 @@ public class User {
     private String pesel;
     private String phone1;
     private String phone2;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String gender;
+    @Enumerated(EnumType.STRING)
     private String userType;
     @Column(unique = true)
     private String email;
@@ -50,7 +54,7 @@ public class User {
         return phone2;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -102,7 +106,7 @@ public class User {
         this.phone2 = phone2;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

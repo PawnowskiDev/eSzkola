@@ -79,7 +79,7 @@ public class AdminServiceImpl implements AdminService {
         if (user.getPesel() == null || user.getPesel().isEmpty()) {
             throw new IllegalArgumentException("PESEL cannot be empty");
         }
-        if (user.getDateOfBirth() == null || user.getDateOfBirth().isEmpty()) {
+        if (user.getDateOfBirth() == null) {
             throw new IllegalArgumentException("Date of birth cannot be empty");
         }
         if (user.getGender() == null || user.getGender().isEmpty()) {

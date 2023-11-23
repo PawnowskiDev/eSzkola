@@ -20,8 +20,6 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
@@ -31,10 +29,8 @@ public class AuthController {
     public String loginUser(@RequestParam String pesel, @RequestParam String password) {
         User user = userService.getUserByPESEL(pesel);
 
-        if (user!= null && passwordEncoder.matches(password, user.getPassword())) {
-
-            return "redirect:/eszkola/";
-
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return "redirect:/eszkola";
         } else {
             return "redirect:/login?error";
         }

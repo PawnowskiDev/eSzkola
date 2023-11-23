@@ -50,11 +50,7 @@
 <body>
 
 <header>
-    <a th:if="${user == null}" href="login.html" class="button"></a>
-    <button th:if="${user == null}">Logowanie</button>
-
-    <a th:if="${user == null}" href="register.html" class="button"></a>
-    <button th:if="${user == null}">Rejestracja</button>
+    <button th:if="${user == null}" onclick="window.location.href='/login'">Logowanie</button>
 
     <button th:if="${user != null}">Wyloguj</button>
     <button th:if="${user != null}">Menu</button>

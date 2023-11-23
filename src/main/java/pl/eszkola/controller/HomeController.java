@@ -12,26 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
 
-    @GetMapping({"/eszkola", "/eszkola/"})
-    public String eszkola(Model model) {
+    @GetMapping({"/eszkola"})
+    public String eszkola (Model model) {
         // Pobierz informacje o zalogowanym użytkowniku
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         // Przekaż informacje do widoku
         model.addAttribute("username", username);
-
         return "index";
     }
 
     @GetMapping("/eszkola/")
     public String redirectToEszkola() {
         return "redirect:/eszkola";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
     }
 
     @GetMapping("/logout")

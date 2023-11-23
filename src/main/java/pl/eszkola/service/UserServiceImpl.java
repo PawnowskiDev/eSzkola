@@ -24,7 +24,9 @@ public class UserServiceImpl implements UserService {
     private final GradesRepository gradesRepository;
     private final AttendanceRepository attendanceRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService, SubjectRepository subjectRepository, GradesRepository gradesRepository, AttendanceRepository attendanceRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService,
+                           SubjectRepository subjectRepository, GradesRepository gradesRepository,
+                           AttendanceRepository attendanceRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordService;
         this.subjectRepository = subjectRepository;
@@ -35,58 +37,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isPasswordValid(String password) {
-        // Sprawdzenie, czy hasło zawiera co najmniej jedną dużą literę, jedną liczbę, co najmniej jeden znak specjalny i ma co najmniej 8 znaków
+        // sprawdzamy czy hasło zawiera co najmniej jedną dużą literę, jedną liczbę, co najmniej jeden znak specjalny i ma co najmniej 8 znaków
         return password.matches("(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}");
     }
 
     @Override
     public void updateUserInfo(Long userId, String address, String phone1, String phone2) {
-        // Znajdź użytkownika na podstawie ID
+        // znajdź użytkownika na podstawie ID
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        // Aktualizuj dane użytkownika
+        // aktualizuj dane użytkownika
         existingUser.setAddress(address);
         existingUser.setPhone1(phone1);
         existingUser.setPhone2(phone2);
 
-        // Zapisz zaktualizowanego użytkownika w bazie danych
+        // zapisz zaktualizowanego użytkownika w bazie danych
         userRepository.save(existingUser);
     }
 
     @Override
-    public void addUser(User user) {
-
-    }
-
-    @Override
-    public void deleteUser(Long userId) {
-
-    }
-
-    @Override
-    public void updateUser(Long userId, User updatedUser) {
-
-    }
-
-    @Override
     public void giveGradeAndNote(Long studentId, Long subjectId, String note, double grade) {
-        // Sprawdzamy, czy student istnieje
+        // sprawdzamy czy student istnieje
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + studentId));
-        // Sprawdzamy, czy przedmiot istnieje
+        // sprawdzamy czy przedmiot istnieje
         Subject subject = subjectRepository.findById(String.valueOf(subjectId))
                 .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + subjectId));
-        // Sprawdzamy, czy ocena mieści się w zakresie
+        // sprawdzamy czy ocena mieści się w zakresie
         if (grade < 1 || grade > 6) {
             throw new IllegalArgumentException("Grade must be between 1 and 6");
         }
-        // Sprawdzamy, czy notatka nie jest pusta
+        // sprawdzamy czy notatka nie jest pusta
         if (StringUtils.isEmpty(note)) {
             throw new IllegalArgumentException("Note cannot be empty");
         }
 
-        // Tworzymy nową ocenę
+        // tworzymy nową ocenę
         Grades newGrade = new Grades();
         newGrade.setUser(student);
         newGrade.setSubject(subject);
@@ -112,4 +99,33 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByPesel(pesel);
     }
 
+
+    @Override
+    public void excuseAttendance(String pesel) {
+        // Znajdź użytkownika na podstawie PESEL
+        User user = userRepository.findByPesel(pesel);
+
+        if (user != null) {
+            // Znajdź rekord obecności dla danego użytkownika (przyjmuję, że istnieje tylko jeden rekord na dzień)
+            Attendance attendanceRecord = attendanceRepository.findByUserIdAndDate(user.getUser_id(), LocalDate.now());
+
+            if (attendanceRecord != null) {
+                // Ustaw isExcused na true
+                attendanceRecord.setExcused(true);
+
+                // Zapisz zaktualizowany rekord obecności
+                attendanceRepository.save(attendanceRecord);
+            } else {
+                // Utwórz nowy rekord obecności i ustaw isExcused
+                Attendance newAttendanceRecord = new Attendance();
+                newAttendanceRecord.setUser(user);
+                newAttendanceRecord.setDate(LocalDate.now());
+                newAttendanceRecord.setExcused(newAttendanceRecord.isPresent());
+
+                // Zapisz nowy rekord obecności
+                attendanceRepository.save(newAttendanceRecord);            }
+        } else {
+            throw new IllegalArgumentException("Student not found with PESEL: " + pesel);
+        }
+    }
 }

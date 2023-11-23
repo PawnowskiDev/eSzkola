@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,10 +32,10 @@
     <h1>Logowanie</h1>
 
     <form action="/login" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <label th:for="pesel" for="pesel">PESEL:</label>
+        <input type="text" id="pesel" name="pesel" required>
 
-        <label for="password">Hasło:</label>
+        <label th:for="password">Hasło:</label>
         <input type="password" id="password" name="password" required>
 
         <button type="submit">Zaloguj się</button>
