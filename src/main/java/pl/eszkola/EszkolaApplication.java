@@ -2,11 +2,13 @@ package pl.eszkola;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import pl.eszkola.config.SecurityConfig;
-
+import pl.eszkola.config.SecurityConfiguration;
 @SpringBootApplication
-@Import(SecurityConfig.class)
+@Import(SecurityConfiguration.class)
+@ComponentScan(basePackages = "pl.eszkola.controller")
+
 public class EszkolaApplication {
 
 	public static void main(String[] args) {

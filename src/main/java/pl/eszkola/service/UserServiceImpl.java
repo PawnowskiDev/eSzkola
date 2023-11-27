@@ -14,6 +14,10 @@ import pl.eszkola.repository.UserRepository;
 
 import javax.security.auth.Subject;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,6 +28,38 @@ public class UserServiceImpl implements UserService {
     private final GradesRepository gradesRepository;
     private final AttendanceRepository attendanceRepository;
 
+    private final Map<Long, User> userMap = new HashMap<>();
+    private long nextUserId = 1;
+
+    @Override
+    public List<User> getAllUsers() {
+        return new ArrayList<>(userMap.values());
+    }
+
+    @Override
+    public User getUserById(Long userId) {
+        return userMap.get(userId);
+    }
+
+    @Override
+    public void addUser(User user) {
+        user.setUser_id(nextUserId++);
+        // Tutaj możesz dodać logikę do generowania hasła, jeśli jest wymagane
+        userMap.put(user.getUser_id(), user);
+    }
+
+    @Override
+    public void updateUser(Long userId, User user) {
+        if (userMap.containsKey(userId)) {
+            user.setUser_id(userId);
+            userMap.put(userId, user);
+        }
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        userMap.remove(userId);
+    }
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordService,
                            SubjectRepository subjectRepository, GradesRepository gradesRepository,
                            AttendanceRepository attendanceRepository) {

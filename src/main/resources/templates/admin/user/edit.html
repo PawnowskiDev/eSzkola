@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSzkola</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edit User</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,25 +47,14 @@
     </style>
 </head>
 <body>
-
-<header>
-    <a href="/templates/auth/login.html" th:href="@{/login}">Logowanie</a></header>
-
-
-<nav>
-    <ul>
-        <li>Strona główna</li>
-        <li>Aktualności</li>
-        <li>Biblioteka</li>
-        <li>O nas</li>
-        <li>Kontakt</li>
-    </ul>
-</nav>
-
-<main>
-    <h1>eSzkola</h1>
-    <p>Elektroniczny dziennik dla uczniów rodziców i nauczycieli</p>
-</main>
-
+<h1>Edit User</h1>
+<!-- Formularz edycji użytkownika -->
+<form method="post" th:object="${user}" th:action="@{/admin/users/edit/{userId}(userId=${user.id})}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required>
+    <!-- Dodaj inne pola według potrzeb -->
+    <input type="submit" value="Save Changes">
+</form>
+<a href="/admin/users">Back to User List</a>
 </body>
 </html>

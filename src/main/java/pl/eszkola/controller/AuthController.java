@@ -9,7 +9,7 @@ import pl.eszkola.model.User;
 import pl.eszkola.service.UserService;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/login")
 public class AuthController {
 
     private final UserService userService;
@@ -20,19 +20,37 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
-    public String showLoginForm() {
+    @GetMapping({"/login"})
+    public String showLoginForm(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Błędny login lub hasło");
+        }
         return "login";
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam String pesel, @RequestParam String password) {
+    public String loginUser(@RequestParam String pesel, @RequestParam String password, Model model) {
         User user = userService.getUserByPESEL(pesel);
 
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return "redirect:/eszkola";
+            String redirectPath = determineRedirectPath(user);
+            return "redirect:" + redirectPath;
         } else {
-            return "redirect:/login?error";
+            model.addAttribute("error", "Błędny login lub hasło");
+            return "login";
         }
     }
+
+    private String determineRedirectPath(User user) {
+        String userType = user.getUserType();
+
+        return switch (userType) {
+            case "ADMIN" -> "/admin/dashboard";
+            case "TEACHER" -> "/teacher/dashboard";
+            case "STUDENT" -> "/student/dashboard";
+            case "PARENT" -> "/parent/dashboard";
+            default -> "/login"; // Domyślna ścieżka dla innych użytkowników
+        };
+    }
 }
+
