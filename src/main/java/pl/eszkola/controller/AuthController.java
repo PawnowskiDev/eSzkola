@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.eszkola.model.User;
+import pl.eszkola.model.MyUser;
 import pl.eszkola.service.UserService;
 
 @Controller
@@ -20,7 +20,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping({"/login"})
+    @GetMapping("/login")
     public String showLoginForm(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute("error", "Błędny login lub hasło");
@@ -30,10 +30,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam String pesel, @RequestParam String password, Model model) {
-        User user = userService.getUserByPESEL(pesel);
+        MyUser myUser = userService.getUserByPESEL(pesel);
 
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            String redirectPath = determineRedirectPath(user);
+        if (myUser != null && passwordEncoder.matches(password, myUser.getPassword())) {
+            String redirectPath = determineRedirectPath(myUser);
             return "redirect:" + redirectPath;
         } else {
             model.addAttribute("error", "Błędny login lub hasło");
@@ -41,8 +41,8 @@ public class AuthController {
         }
     }
 
-    private String determineRedirectPath(User user) {
-        String userType = user.getUserType();
+    private String determineRedirectPath(MyUser myUser) {
+        String userType = String.valueOf(myUser.getUserType());
 
         return switch (userType) {
             case "ADMIN" -> "/admin/dashboard";

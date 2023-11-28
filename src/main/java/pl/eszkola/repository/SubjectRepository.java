@@ -1,8 +1,10 @@
 package pl.eszkola.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.eszkola.model.Subject;
 
-import javax.security.auth.Subject;
 
-public interface SubjectRepository extends JpaRepository<Subject, String> {
+public interface SubjectRepository extends JpaRepository<Subject, Long> {
+
+
 }

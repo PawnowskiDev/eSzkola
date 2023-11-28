@@ -1,8 +1,10 @@
 package pl.eszkola.model;
 
-public enum UserRole {
+public enum UserType {
     ADMIN,
     STUDENT,
     PARENT,
     TEACHER
 }
+
+

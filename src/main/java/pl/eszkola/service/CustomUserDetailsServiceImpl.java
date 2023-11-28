@@ -5,8 +5,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.eszkola.model.User;
-import pl.eszkola.model.UserRole;
+import pl.eszkola.model.MyUser;
+import pl.eszkola.model.UserType;
 import pl.eszkola.repository.UserRepository;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,21 +24,19 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String pesel) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(pesel);
+        MyUser myUser = userRepository.findByEmail(pesel);
 
-        if (user == null) {
+        if (myUser == null) {
             throw new UsernameNotFoundException("User not found with email: " + pesel);
         }
         return new org.springframework.security.core.userdetails.User(
-                user.getPesel(),
-                user.getPassword(),
-                getAuthorities(user.getRole())
+                myUser.getPesel(),
+                myUser.getPassword(),
+                getAuthorities(myUser.getUserType())
         );
-
-
         }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(UserRole role) {
+    private Collection<? extends GrantedAuthority> getAuthorities(UserType role) {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 }

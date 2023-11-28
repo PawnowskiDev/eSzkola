@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/eszkola")
+@RequestMapping("/")
 public class HomeController {
 
 
-    @GetMapping({"/", ""})
+    @GetMapping
     public String eszkola (Model model) {
         // Pobierz informacje o zalogowanym użytkowniku
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

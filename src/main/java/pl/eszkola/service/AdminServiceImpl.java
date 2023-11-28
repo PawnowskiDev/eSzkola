@@ -3,9 +3,8 @@ package pl.eszkola.service;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.util.StringUtils;
-import pl.eszkola.model.User;
+import pl.eszkola.model.MyUser;
 import pl.eszkola.repository.UserRepository;
-
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -20,22 +19,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(MyUser myUser) {
         // Sprawdzamy, czy użytkownik o danym email już istnieje
-        if (userRepository.existsByEmail(user.getPesel())) {
+        if (userRepository.existsByEmail(myUser.getPesel())) {
             throw new RuntimeException("User with this PESEL already exists");
         }
         // walidacja innych pól użytkownika przed zapisaniem
-        validateUserFields(user);
+        validateUserFields(myUser);
 
         // Zapisujemy użytkownika
-        userRepository.save(user);
+        userRepository.save(myUser);
     }
 
     @Override
     public void deleteUser(Long userId) {
         // Sprawdzamy, czy użytkownik istnieje
-        User userToDelete = userRepository.findById(userId)
+        MyUser userToDelete = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
         // Usuwamy użytkownika
@@ -43,56 +42,56 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updateUser(Long userId, User updatedUser) {
+    public void updateUser(Long userId, MyUser updatedUser) {
         // Sprawdzamy, czy użytkownik istnieje
-        User existingUser = userRepository.findById(userId)
+        MyUser existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
         // Aktualizujemy dane użytkownika
         existingUser.setName(updatedUser.getName());
         existingUser.setSurname(updatedUser.getSurname());
         existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setAddress(updatedUser.getAddress());
+        existingUser.setAdress(updatedUser.getAdress());
         existingUser.setPesel(updatedUser.getPesel());
         existingUser.setPhone1(updatedUser.getPhone1());
         existingUser.setPhone2(updatedUser.getPhone2());
         existingUser.setDateOfBirth(updatedUser.getDateOfBirth());
         existingUser.setGender(updatedUser.getGender());
-        existingUser.setRole(updatedUser.getRole());
+        existingUser.setUserType(updatedUser.getUserType());
 
 
         // Zapisujemy zaktualizowanego użytkownika
         userRepository.save(existingUser);
     }
 
-    private void validateUserFields(User user) {
+    private void validateUserFields(MyUser myUser) {
 
-        if (user.getName() == null || user.getName().isEmpty()) {
+        if (myUser.getName() == null || myUser.getName().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (user.getSurname() == null || user.getSurname().isEmpty()) {
+        if (myUser.getSurname() == null || myUser.getSurname().isEmpty()) {
             throw new IllegalArgumentException("Surname cannot be empty");
         }
-        if (user.getAddress() == null || user.getAddress().isEmpty()) {
+        if (myUser.getAdress() == null || myUser.getAdress().isEmpty()) {
             throw new IllegalArgumentException("Address cannot be empty");
         }
-        if (user.getPesel() == null || user.getPesel().isEmpty()) {
+        if (myUser.getPesel() == null || myUser.getPesel().isEmpty()) {
             throw new IllegalArgumentException("PESEL cannot be empty");
         }
-        if (user.getDateOfBirth() == null) {
+        if (myUser.getDateOfBirth() == null) {
             throw new IllegalArgumentException("Date of birth cannot be empty");
         }
-        if (user.getGender() == null || user.getGender().isEmpty()) {
+        if (myUser.getGender() == null || myUser.getGender().isEmpty()) {
             throw new IllegalArgumentException("Gender cannot be empty");
         }
-        if (user.getUserType() == null || user.getUserType().isEmpty()) {
+        if (myUser.getUserType() == null ) {
             throw new IllegalArgumentException("User Type cannot be empty");
         }
         // ustawianie hasła jezeli jest puste
-        if (StringUtils.isEmpty(user.getPassword())) {
-            user.setPassword(generateRandomPassword());
+        if (StringUtils.isEmpty(myUser.getPassword())) {
+            myUser.setPassword(generateRandomPassword());
         }
-        validateEmailFormat(user.getEmail());
+        validateEmailFormat(myUser.getEmail());
     }
 
     private String generateRandomPassword() {

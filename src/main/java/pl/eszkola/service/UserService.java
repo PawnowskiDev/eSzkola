@@ -1,9 +1,6 @@
 package pl.eszkola.service;
 
-import pl.eszkola.model.User;
-
-import java.time.LocalDate;
-import java.util.List;
+import pl.eszkola.model.MyUser;
 
 public interface UserService {
 
@@ -11,21 +8,15 @@ public interface UserService {
 
     void updateUserInfo(Long userId, String address, String phone1, String phone2);
 
-    void giveGradeAndNote(Long studentId, Long subjectid, String note, double grade);
-
-    boolean checkAttendance (Long userId, Long classId, LocalDate date);
-
-    User getUserByPESEL(String pesel);
-
-    void excuseAttendance(String pesel);
+    MyUser getUserByPESEL(String pesel);
 
     Object getAllUsers();
 
-    void addUser(User user);
+    void addUser(MyUser myUser);
 
-    User getUserById(Long userId);
+    MyUser getUserById(Long userId);
 
-    void updateUser(Long userId, User user);
+    void updateUser(Long userId, MyUser myUser);
 
     void deleteUser(Long userId);
 }

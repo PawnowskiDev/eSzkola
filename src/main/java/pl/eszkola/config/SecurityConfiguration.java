@@ -26,9 +26,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults())
-                .logout(withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .httpBasic(withDefaults());
 
         return http.build();
     }

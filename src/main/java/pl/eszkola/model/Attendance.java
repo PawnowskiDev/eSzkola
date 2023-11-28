@@ -17,49 +17,50 @@ public class Attendance {
     @Getter
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private MyUser myUser;
 
     @Getter
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
-    private Class aClass;
+    @JoinColumn(name = "schoolClass_id", nullable = false)
+    private SchoolClass schoolClass;
 
+    @Getter
     @Column(name = "is_excused")
-    private boolean isExcused;
+    @Enumerated(EnumType.STRING)
+    private ExcuseStatus isExcused;
 
     @Getter
     private LocalDate date;
+
     @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_present")
     private AttendanceStatus isPresent;
 
     public Attendance() {
     }
 
-    public void setAttendanceId(Long attendanceId) {
-        this.attendanceId = attendanceId;
-    }
+    // Gettery i settery
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setaClass(Class aClass) {
-        this.aClass = aClass;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public void setIsPresent(AttendanceStatus isPresent) {
-        this.isPresent = isPresent;
-    }
     public boolean isPresent() {
         return AttendanceStatus.YES.equals(isPresent);
     }
 
-    public void setExcused(boolean isExcused) {
+    public void setExcused(ExcuseStatus isExcused) {
         this.isExcused = isExcused;
+    }
+
+    public void setMyUser(MyUser myUser) {
+
+    }
+
+    public void setDate(LocalDate now) {
+    }
+
+    public enum ExcuseStatus {
+        YES,
+        NO,
+        EXCUSED
     }
 
     public enum AttendanceStatus {

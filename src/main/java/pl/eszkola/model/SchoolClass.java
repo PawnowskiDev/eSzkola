@@ -3,6 +3,8 @@ package pl.eszkola.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "class")
 public class SchoolClass {
@@ -23,4 +25,7 @@ public class SchoolClass {
         YES,
         NO
     }
+
+    @OneToMany(mappedBy = "schoolClass")
+    private List<Grade> grades;
 }

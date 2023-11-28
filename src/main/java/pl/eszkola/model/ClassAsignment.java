@@ -13,7 +13,7 @@ public class ClassAsignment {
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private MyUser  myUser;
 
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)

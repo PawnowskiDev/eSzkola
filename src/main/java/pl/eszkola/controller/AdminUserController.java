@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.eszkola.model.User;
-import pl.eszkola.service.AdminService;
-import pl.eszkola.service.AdminServiceImpl;
+import pl.eszkola.model.MyUser;
+
 import pl.eszkola.service.UserService;
 
 @Controller
@@ -28,27 +27,27 @@ public class AdminUserController {
 
     @GetMapping("/add")
     public String addUserForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new MyUser());
         return "admin/user/add";
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute User user) {
+    public String addUser(@ModelAttribute MyUser myUser) {
         // tutaj metoda generowania randomowego hasła
-        userService.addUser(user);
+        userService.addUser(myUser);
         return "redirect:/admin/users";
     }
 
     @GetMapping("/edit/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
-        User user = userService.getUserById(userId);
-        model.addAttribute("user", user);
+        MyUser myUser = userService.getUserById(userId);
+        model.addAttribute("user", myUser);
         return "admin/user/edit";
     }
 
     @PostMapping("/edit/{userId}")
-    public String editUser(@PathVariable Long userId, @ModelAttribute User user) {
-        userService.updateUser(userId, user);
+    public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
+        userService.updateUser(userId, myUser);
         return "redirect:/admin/users";
     }
 
