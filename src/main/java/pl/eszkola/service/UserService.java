@@ -1,5 +1,6 @@
 package pl.eszkola.service;
 
+import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
 
 public interface UserService {

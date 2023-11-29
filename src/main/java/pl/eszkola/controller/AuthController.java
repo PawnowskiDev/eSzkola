@@ -25,7 +25,7 @@ public class AuthController {
         if (error != null) {
             model.addAttribute("error", "Błędny login lub hasło");
         }
-        return "login";
+        return "/templates/auth/login.html";
     }
 
     @PostMapping("/login")
@@ -37,7 +37,7 @@ public class AuthController {
             return "redirect:" + redirectPath;
         } else {
             model.addAttribute("error", "Błędny login lub hasło");
-            return "login";
+            return "/templates/auth/login.html";
         }
     }
 
@@ -49,7 +49,7 @@ public class AuthController {
             case "TEACHER" -> "/teacher/dashboard";
             case "STUDENT" -> "/student/dashboard";
             case "PARENT" -> "/parent/dashboard";
-            default -> "/login"; // Domyślna ścieżka dla innych użytkowników
+            default -> "/templates/auth/login.html"; // Domyślna ścieżka dla innych użytkowników
         };
     }
 }

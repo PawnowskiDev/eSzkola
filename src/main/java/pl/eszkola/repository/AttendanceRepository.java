@@ -21,7 +21,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
                                 @Param("schoolClass") SchoolClass schoolClass,
                                 @Param("date") LocalDate date);
 
-    @Query("SELECT a FROM Attendance a WHERE a.myUser.user_id = :userId AND a.date = :date")
-    List<Attendance> findAttendanceByUserIdAndDate(@Param("userId") Long userId, @Param("date") LocalDate date);
+    @Query("SELECT a FROM Attendance a WHERE a.myUser.pesel = :pesel AND a.date = :date")
+    List<Attendance> findAttendanceByPeselAndDate(@Param("pesel") String pesel, @Param("date") LocalDate date);
 }
 

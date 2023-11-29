@@ -2,6 +2,7 @@ package pl.eszkola.service;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 import pl.eszkola.model.Attendance;
 import pl.eszkola.model.Grade;
 import pl.eszkola.model.MyUser;
@@ -10,9 +11,9 @@ import pl.eszkola.repository.AttendanceRepository;
 import pl.eszkola.repository.GradesRepository;
 import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.repository.UserRepository;
-
 import java.time.LocalDate;
 
+@Service
 public class TeacherServiceImpl implements TeacherService {
 
     private final UserRepository userRepository;
@@ -56,13 +57,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean checkAttendance(Long userId, Long classId, LocalDate date) {
+    public boolean checkAttendance(String pesel, Long classId, LocalDate date) {
         // sprawdzamy czy istnieje rekord dla obecnosci uzytkownika danej klasy w danym dniu
-// TODO fix AttendanceRepository        Attendance attendanceRecord = attendanceRepository.findByUserIdAndClassIdAndDate(userId, classId, date);
+        Attendance attendanceRecord = (Attendance) attendanceRepository.findAttendanceByPeselAndDate(pesel, date);
 
         // zwracamy true, jezeli uzytkownik był obecny
-//        return attendanceRecord != null && attendanceRecord.isPresent();
-        return false; // TODO return nienawisci
+        return attendanceRecord != null && attendanceRecord.isPresent();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         if (myUser != null) {
             // Znajdź rekord obecności dla danego użytkownika i dzisiejszej daty
-            Attendance attendanceRecord = (Attendance) attendanceRepository.findAttendanceByUserIdAndDate(myUser.getUser_id(), LocalDate.now());
+            Attendance attendanceRecord = (Attendance) attendanceRepository.findAttendanceByPeselAndDate(myUser.getPesel(), LocalDate.now());
 
             if (attendanceRecord != null) {
                 // Ustaw isExcused na true

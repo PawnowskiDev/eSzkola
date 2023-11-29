@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,6 +48,12 @@
 </head>
 <body>
 <h1>Panel Nauczyciela</h1>
-<!-- Dodaj tutaj treść strony administracyjnej -->
+
+<div>
+    <a th:href="@{/teacher/giveGradeAndNote}"><button>Wystaw ocenę</button></a>
+    <a th:href="@{/teacher/checkAttendance}"><button>Sprawdź obecność</button></a>
+    <a th:href="@{/teacher/excuseAttendance}"><button>Usprawiedliw nieobecność</button></a>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usprawiedliw nieobecność</title>
+</head>
+<body>
+
+<h1>Usprawiedliw nieobecność</h1>
+
+<form th:action="@{/teacher/excuseAttendance}" method="post">
+    <label for="pesel">PESEL Studenta: </label>
+    <input type="text" id="pesel" name="pesel" required><br>
+
+    <button type="submit">Usprawiedliw nieobecność</button>
+</form>
+
+</body>
+</html>

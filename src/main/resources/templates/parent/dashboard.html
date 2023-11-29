@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Teacher Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,32 +47,7 @@
     </style>
 </head>
 <body>
-<h1>User List</h1>
-<!-- Wyświetl listę użytkowników -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <!-- Dodaj inne kolumny według potrzeb -->
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Iteruj po użytkownikach i wyświetl dane -->
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.email}"></td>
-        <!-- Dodaj inne kolumny według potrzeb -->
-        <td>
-            <a th:href="@{/admin/users/edit/{userId}(userId=${user.id})}">Edit</a>
-            <a th:href="@{/admin/users/delete/{userId}(userId=${user.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<a href="/templates/admin/user/list.html">Add User</a>
+<h1>Panel Rodzica</h1>
+<!-- Dodaj tutaj treść strony administracyjnej -->
 </body>
 </html>

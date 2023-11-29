@@ -9,7 +9,7 @@ import pl.eszkola.model.MyUser;
 import pl.eszkola.service.UserService;
 
 @Controller
-@RequestMapping("/admin/users")
+@RequestMapping("/admin/user")
 public class AdminUserController {
 
     private final UserService userService;
@@ -35,7 +35,7 @@ public class AdminUserController {
     public String addUser(@ModelAttribute MyUser myUser) {
         // tutaj metoda generowania randomowego hasła
         userService.addUser(myUser);
-        return "redirect:/admin/users";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/edit/{userId}")
@@ -48,12 +48,12 @@ public class AdminUserController {
     @PostMapping("/edit/{userId}")
     public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
         userService.updateUser(userId, myUser);
-        return "redirect:/admin/users";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/delete/{userId}")
     public String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
-        return "redirect:/admin/users";
+        return "redirect:/admin/user";
     }
 }

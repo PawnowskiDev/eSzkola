@@ -2,12 +2,13 @@ package pl.eszkola.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import pl.eszkola.model.MyUser;
 import pl.eszkola.repository.UserRepository;
 import java.security.SecureRandom;
 import java.util.Random;
-
+@Service
 public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
