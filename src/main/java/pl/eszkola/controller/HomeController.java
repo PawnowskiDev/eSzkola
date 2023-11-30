@@ -11,7 +11,7 @@ public class HomeController {
 
     @GetMapping("/eszkola")
     public String eszkola (Model model) {
-        return "index";
+        return "/templates/index.html";
     }
 
     @GetMapping("/logout")
