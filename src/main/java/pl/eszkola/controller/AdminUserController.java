@@ -34,7 +34,7 @@ public class AdminUserController {
     @PostMapping("/add")
     public String addUser(@ModelAttribute MyUser myUser) {
         // tutaj metoda generowania randomowego hasła
-        userService.addUser(myUser);
+        userService.saveUser(myUser);
         return "redirect:/admin/user";
     }
 

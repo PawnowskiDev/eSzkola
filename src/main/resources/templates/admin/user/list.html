@@ -65,10 +65,13 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
+        <td th:text="${user.adress}"></td>
+        <td th:text="${user.pesel}"></td>
+        <td th:text="${user.phone1}"></td>
         <!-- Dodaj inne kolumny według potrzeb -->
         <td>
-            <a th:href="@{/admin/users/edit/{userId}(userId=${user.id})}">Edit</a>
-            <a th:href="@{/admin/users/delete/{userId}(userId=${user.id})}">Delete</a>
+            <a th:href="@{/admin/user/edit/{userId}(userId=${user.id})}">Edit</a>
+            <a th:href="@{/admin/user/delete/{userId}(userId=${user.id})}">Delete</a>
         </td>
     </tr>
     </tbody>

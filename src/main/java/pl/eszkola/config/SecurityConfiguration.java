@@ -1,49 +1,18 @@
-package pl.eszkola.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.SecurityFilterChain;
-import pl.eszkola.service.UserService;
-
-@Configuration
-@EnableWebSecurity
-public class SecurityConfiguration {
+//package pl.eszkola.config;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import pl.eszkola.service.UserService;
+//
+//import static org.springframework.security.config.Customizer.withDefaults;
+//
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfiguration {
 
 
-    @Bean
-    public SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter(
-            UserDetailsService userDetailsService) {
-        return new SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
-            @Override
-            public void configure(HttpSecurity http) throws Exception {
-                http
-                        .authorizeHttpRequests(authorizeRequests ->
-                                authorizeRequests
-                                        .requestMatchers("/eszkola").hasAnyRole("ADMIN", "TEACHER", "STUDENT", "PARENT")
-                                        .anyRequest().authenticated()
-                        )
-                        .formLogin(formLogin ->
-                                formLogin
-                                        .loginPage("/templates/auth/login.html")
-                                        .permitAll()
-                        )
-                        .logout(LogoutConfigurer::permitAll
-                        );
-            }
-        };
-    }
 //    @Bean
 //    public SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securityConfigurer(UserService userService) {
 //        return new SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
@@ -76,29 +45,29 @@ public class SecurityConfiguration {
 //        };
 //    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userAdmin = User.withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN").build();
-
-        UserDetails userTeacher = User.withUsername("teacher")
-                .password(passwordEncoder().encode("teacher"))
-                .roles("TEACHER").build();
-
-        UserDetails userStudent = User.withUsername("student")
-                .password(passwordEncoder().encode("student"))
-                .roles("STUDENT").build();
-
-        UserDetails userParent = User.withUsername("parent")
-                .password(passwordEncoder().encode("parent"))
-                .roles("PARENT").build();
-
-        return new InMemoryUserDetailsManager(userAdmin, userTeacher, userStudent, userParent);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails userAdmin = User.withUsername("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN").build();
+//
+//        UserDetails userTeacher = User.withUsername("teacher")
+//                .password(passwordEncoder().encode("teacher"))
+//                .roles("TEACHER").build();
+//
+//        UserDetails userStudent = User.withUsername("student")
+//                .password(passwordEncoder().encode("student"))
+//                .roles("STUDENT").build();
+//
+//        UserDetails userParent = User.withUsername("parent")
+//                .password(passwordEncoder().encode("parent"))
+//                .roles("PARENT").build();
+//
+//        return new InMemoryUserDetailsManager(userAdmin, userTeacher, userStudent, userParent);
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//}

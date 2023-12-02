@@ -49,7 +49,7 @@
 <body>
 <h1>Edit User</h1>
 <!-- Formularz edycji użytkownika -->
-<form method="post" th:object="${user}" th:action="@{/admin/users/edit/{userId}(userId=${user.id})}">
+<form method="post" th:object="${user}" th:action="@{/admin/user/edit/{userId}(userId=${user.id})}">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" th:field="*{name}" required>
     <label for="surname">Surname:</label>

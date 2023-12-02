@@ -1,6 +1,7 @@
 package pl.eszkola.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
 import pl.eszkola.repository.UserRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Primary
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -28,10 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(MyUser myUser) {
-        myUser.setUser_id(nextUserId++);
-        // Tutaj możesz dodać logikę do generowania hasła, jeśli jest wymagane
-        userMap.put(myUser.getUser_id(), myUser);
+    public void saveUser (MyUser myUser) {
+        userRepository.save(myUser);
     }
 
     @Override
@@ -54,6 +54,15 @@ public class UserServiceImpl implements UserService {
     public boolean isPasswordValid(String password) {
         // sprawdzamy czy hasło zawiera co najmniej jedną dużą literę, jedną liczbę, co najmniej jeden znak specjalny i ma co najmniej 8 znaków
         return password.matches("(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}");
+
+    }
+    @Override
+    public void validateEmailFormat(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        if (!email.matches(emailRegex)) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
     }
 
     @Override
@@ -75,6 +84,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public MyUser getUserByPESEL(String pesel) {
         return userRepository.findByPesel(pesel);
+    }
+
+    @Override
+    public void validateUserFields(MyUser myUser) {
+
+        if (myUser.getName() == null || myUser.getName().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (myUser.getSurname() == null || myUser.getSurname().isEmpty()) {
+            throw new IllegalArgumentException("Surname cannot be empty");
+        }
+        if (myUser.getAdress() == null || myUser.getAdress().isEmpty()) {
+            throw new IllegalArgumentException("Address cannot be empty");
+        }
+        if (myUser.getPesel() == null || myUser.getPesel().isEmpty()) {
+            throw new IllegalArgumentException("PESEL cannot be empty");
+        }
+        if (myUser.getDateOfBirth() == null) {
+            throw new IllegalArgumentException("Date of birth cannot be empty");
+        }
+        if (myUser.getGender() == null || myUser.getGender().isEmpty()) {
+            throw new IllegalArgumentException("Gender cannot be empty");
+        }
+        if (myUser.getUserType() == null ) {
+            throw new IllegalArgumentException("User Type cannot be empty");
+        }
+
+        validateEmailFormat(myUser.getEmail());
     }
 
 

@@ -20,17 +20,18 @@
           text-align: right;
         }
     </style>
+    <title>Login Page</title>
 </head>
 <body>
 
 <header>
-    <button onclick="window.location.href='/auth/index'">Strona Główna</button>
+       <a th:href="@{/}">Strona głowna</a>
 </header>
 
 <main>
     <h1>Logowanie</h1>
 
-<form th:action="@{/eszkola/auth/login}" method="post">
+<form th:action="@{/auth/login}" method="post">
     <label th:for="pesel" for="pesel">PESEL:</label>
     <input type="text" id="pesel" name="pesel" required>
 

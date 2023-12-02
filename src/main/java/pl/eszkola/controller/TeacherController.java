@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.eszkola.service.TeacherService;
-import pl.eszkola.service.TeacherServiceImpl;
 
 @Controller
 @RequestMapping("/teacher")
@@ -24,13 +23,13 @@ public class TeacherController {
     @GetMapping("/dashboard")
     public String showDashboard() {
         // logika
-        return "/templates/teacher/dashboard.html";
+        return "teacher/dashboard";
     }
 
     @GetMapping("/giveGradeAndNote")
     public String showGiveGradeAndNoteForm(Model model) {
         // Logika związana z wystawianiem oceny i noty
-        return "/templates/teacher/giveGradeAndNoteForm.html";
+        return "teacher/giveGradeAndNoteForm";
     }
 
     @PostMapping("/giveGradeAndNote")
@@ -42,7 +41,7 @@ public class TeacherController {
     @GetMapping("/checkAttendance")
     public String showCheckAttendanceForm(Model model) {
         // Logika związana ze sprawdzaniem obecności
-        return "/templates/teacher/checkAttendanceForm.html";
+        return "teacher/checkAttendanceForm";
     }
 
     @PostMapping("/checkAttendance")
@@ -55,7 +54,7 @@ public class TeacherController {
     @GetMapping("/excuseAttendance")
     public String showExcuseAttendanceForm(Model model) {
         // Logika związana z usprawiedliwianiem nieobecności
-        return "/templates/teacher/excuseAttendanceForm.html";
+        return "teacher/excuseAttendanceForm";
     }
 
     @PostMapping("/excuseAttendance")

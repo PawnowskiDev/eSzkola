@@ -2,16 +2,16 @@ package pl.eszkola.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
-import java.util.Collection;
+
 
 @Getter
-@Entity//(name = "user") // tereaz pewnie bedzie krzyczec o tego User'a z AttendanceRepo ze nie jest encja
+@Entity
 @Table(name = "user")
-// TODO O ile sie nie myle, z tego ze @Entity nie ma zadnego parametru, ta, to nazywa sie MyUser, a w query masz User, i nie znajduje go
-public class MyUser implements UserDetails {
+
+public class MyUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -29,6 +29,7 @@ public class MyUser implements UserDetails {
     @Column(name = "phone2")
     private String phone2;
     @Column(name = "date_of_birth")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
     @Column(name = "gender")
     private String gender;
@@ -90,34 +91,5 @@ public class MyUser implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }
 
