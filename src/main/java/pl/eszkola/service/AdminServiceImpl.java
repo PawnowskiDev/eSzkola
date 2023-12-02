@@ -9,6 +9,7 @@ import pl.eszkola.model.SchoolClass;
 import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.repository.UserRepository;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -40,7 +41,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteUser(Long userId) {
-        // Sprawdzamy, czy użytkownik istnieje
+        //  czy użytkownik istnieje
         MyUser userToDelete = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
@@ -50,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updateUser(Long userId, MyUser updatedUser) {
-        // Sprawdzamy, czy użytkownik istnieje
+        // użytkownik istnieje
         MyUser existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
@@ -91,7 +92,7 @@ public class AdminServiceImpl implements AdminService {
         if (myUser.getGender() == null || myUser.getGender().isEmpty()) {
             throw new IllegalArgumentException("Gender cannot be empty");
         }
-        if (myUser.getUserType() == null ) {
+        if (myUser.getUserType() == null) {
             throw new IllegalArgumentException("User Type cannot be empty");
         }
         // ustawianie hasła jezeli jest puste
@@ -115,6 +116,7 @@ public class AdminServiceImpl implements AdminService {
         }
         return password.toString();
     }
+
     @Override
     public void validateEmailFormat(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -146,4 +148,14 @@ public class AdminServiceImpl implements AdminService {
             throw new IllegalArgumentException("Type of school attendance cannot be empty");
         }
     }
-}
+        @Override
+        public List<MyUser> getUsersByTypeAndKeyword (String userType, String keyword){
+            if (userType.equalsIgnoreCase("teacher")) {
+                return userRepository.findTeachersByKeyword(keyword);
+            } else if (userType.equalsIgnoreCase("student")) {
+                return userRepository.findStudentsByKeyword(keyword);
+            }
+            return null;
+        }
+    }
+

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>User Delete</title>
     <style>
         body {
                  font-family: Arial, sans-serif;
@@ -45,46 +47,39 @@
     </style>
 </head>
 <body>
-<h1>Add User</h1>
-<!-- Formularz dodawania użytkownika -->
-<form method="post" th:object="${user}" th:action="@{/admin/users/add}">
-    <label for="name">Name:</label>
+<h1>Edytuj użytkownika</h1>
+<form method="post" th:action="@{/admin/user/edit}">
+    <label th:for="name">Name:</label>
     <input type="text" id="name" name="name" required>
 
-    <label for="surname">Surname:</label>
+    <label th:for="surname">Surname:</label>
     <input type="text" id="surname" name="surname"  required>
 
-    <label for="address">Address:</label>
+    <label th:for="address">Address:</label>
     <input type="text" id="address" name="address"  required>
 
-    <label for="pesel">PESEL:</label>
+    <label th:for="pesel">PESEL:</label>
     <input type="text" id="pesel" name="pesel"  required>
 
-    <label for="phone1">Phone 1:</label>
+    <label th:for="phone1">Phone 1:</label>
     <input type="text" id="phone1" name="phone1"  required>
 
-    <label for="phone2">Phone 2:</label>
+    <label th:for="phone2">Phone 2:</label>
     <input type="text" id="phone2" name="phone2" >
 
-    <label for="dateOfBirth">Date of Birth:</label>
+    <label th:for="dateOfBirth">Date of Birth:</label>
     <input type="text" id="dateOfBirth" name="dateOfBirth"  required>
 
-    <label for="gender">Gender:</label>
+    <label th:for="gender">Gender:</label>
     <input type="text" id="gender" name="gender"  required>
 
-    <label for="userType">User Type:</label>
+    <label th:for="userType">User Type:</label>
     <input type="text" id="userType" name="userType"  required>
 
-    <label for="email">Email:</label>
+    <label th:for="email">Email:</label>
     <input type="text" id="email" name="email"  required>
 
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password" required>
-
-    <input type="submit" value="Add User">
-
-
+    <button type="submit">Zapisz zmiany</button>
 </form>
-<a href="/templates/admin/user">Back to User List</a>
 </body>
 </html>

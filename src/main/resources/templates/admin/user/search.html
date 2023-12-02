@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search User</title>
+    <style>
+        body {
+                 font-family: Arial, sans-serif;
+                 margin: 0;
+                 padding: 0;
+                 background-color: #f4f4f4;
+             }
+
+               header {
+                 background-color: #333;
+                 padding: 10px;
+                 color: white;
+                 text-align: right;
+               }
+
+               form {
+                  max-width: 400px;
+                  margin: 0 auto;
+               }
+
+               label {
+                  display: block;
+                  margin-bottom: 5px;
+               }
+
+               input, select {
+                  width: 100%;
+                  padding: 8px;
+                  margin-bottom: 10px;
+                  box-sizing: border-box;
+               }
+
+               input[type="submit"] {
+                  background-color: #333;
+                  color: white;
+                  cursor: pointer;
+               }
+
+    </style>
+</head>
+<body>
+<h1>Wyszukaj użytkowników</h1>
+<form method="post" th:action="@{/admin/user/search}">
+    <label for="userType">Typ użytkownika:</label>
+    <select id="userType" name="userType" required>
+        <option value="teacher">Nauczyciel</option>
+        <option value="student">Uczeń</option>
+    </select>
+    <br>
+    <label for="keyword">Fraza wyszukiwania:</label>
+    <input type="text" id="keyword" name="keyword" required>
+    <br>
+    <button type="submit">Szukaj</button>
+</form>
+
+<h2>Wyniki wyszukiwania:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

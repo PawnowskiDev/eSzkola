@@ -8,6 +8,8 @@ import pl.eszkola.model.MyUser;
 
 import pl.eszkola.service.UserService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminUserController {
@@ -19,43 +21,59 @@ public class AdminUserController {
         this.userService = userService;
     }
 
-    @GetMapping("/list")
-    public String listUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "admin/user/list";
-    }
+//    @GetMapping("/user/list")
+//    public String listUsers(Model model) {
+//        model.addAttribute("users", userService.getAllUsers());
+//        return "admin/user/list";
+//    }
 
-    @GetMapping("/add")
+    @GetMapping("/user/addUser")
     public String addUserForm(Model model) {
         model.addAttribute("user", new MyUser());
         return "admin/user/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/user/addUser")
     public String addUser(@ModelAttribute MyUser myUser) {
         // tutaj metoda generowania randomowego hasła
         userService.saveUser(myUser);
-        return "redirect:/admin/user";
+        return "redirect:admin/user/add";
     }
 
-    @GetMapping("/edit/{userId}")
+    @GetMapping("/user/edit/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
         model.addAttribute("user", myUser);
-        return "admin/user/edit";
+        return "admin/user/update";
     }
 
-    @PostMapping("/edit/{userId}")
+    @PostMapping("/user/edit/{userId}")
     public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
         userService.updateUser(userId, myUser);
-        return "redirect:/admin/user";
+        return "redirect:admin/user/update";
     }
 
-    @GetMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable Long userId) {
+    @PostMapping("/user/deleteUser")
+    public String deleteUser (@RequestParam Long userId) {
         userService.deleteUser(userId);
-        return "redirect:/admin/user";
+        return "admin/user/delete";
     }
 
+    @GetMapping("/user/deleteUser")
+    public String deleteUserForm() {
+        return "redirect:admin/user/dashboard";
+    }
+
+    @GetMapping("/user/search")
+    public String searchUsersForm() {
+        return "admin/user/search";
+    }
+
+    @PostMapping("/user/search")
+    public String searchUsers(@RequestParam String userType, @RequestParam String keyword, Model model) {
+        List<MyUser> users = userService.getUsersByTypeAndKeyword(userType, keyword);
+        model.addAttribute("users", users);
+        return "admin/user/search";
+    }
 
 }

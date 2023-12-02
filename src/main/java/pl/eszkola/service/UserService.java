@@ -26,4 +26,6 @@ public interface UserService {
     void deleteUser(Long userId);
 
     void validateUserFields(MyUser myUser);
+
+    List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword);
 }

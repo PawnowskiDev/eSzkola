@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,22 +47,21 @@
     </style>
 </head>
 <body>
+<h1>Dodaj klasę szkolną</h1>
+<form method="post" th:object="${schoolClass}" th:action="@{/admin/schoolClass/addSchoolClass}">
+    <label for="className">Nazwa klasy:</label>
+    <input type="text" id="className" name="className" required>
 
-    <h1>Użytkownik</h1>
+    <label for="classProfile">Profil klasy:</label>
+    <input type="text" id="classProfile" name="classProfile" required>
 
-        <div>
-            <a th:href="@{/admin/user/addUser}"><button>Dodaj użytkownika</button></a>
-            <a th:href="@{/admin/user/update}"><button>Edytuj użytkownika</button></a>
-            <a th:href="@{/admin/user/delete}"><button>Usuń użytkownika</button></a>
-            <a th:href="@{/admin/user/search}"><button>Wyszukaj użytkownika</button></a>
-        </div>
+    <label for="isEvening">Tryb zajęć:</label>
+    <select id="isEvening" name="isEvening"  required>
+        <option value="yes">Wieczorowy</option>
+        <option value="no">Dzienny</option>
+    </select>
 
-    <h1>Klasa</h1>
-    <div>
-        <a th:href="@{/admin/schoolClass/addSchoolClass}"><button>Utwórz klase</button></a>
-    </div>
-
+    <button type="submit">Dodaj klasę szkolną</button>
+</form>
 </body>
-
-
 </html>

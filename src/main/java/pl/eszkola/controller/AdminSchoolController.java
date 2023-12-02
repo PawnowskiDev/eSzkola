@@ -9,7 +9,7 @@ import pl.eszkola.service.AdminService;
 import pl.eszkola.service.AdminServiceImpl;
 
 @Controller
-@RequestMapping("/schoolClass")
+@RequestMapping("/admin")
 public class AdminSchoolController {
 
     private final SchoolClassRepository schoolClassRepository;
@@ -19,21 +19,16 @@ public class AdminSchoolController {
         this.schoolClassRepository = schoolClassRepository;
     }
 
-    @GetMapping("/schoolClassDashboard")
-    public String showDashboard() {
-        // logika
-        return "admin/schoolClass/schoolClassDashboard";
-    }
 
-    @GetMapping("/addSchoolClass")
-    public String showAddSchoolClass (SchoolClass schoolClass) {
-        // Logika związana z wystawianiem oceny i noty
+    @GetMapping("/schoolClass/addSchoolClass")
+    public String showAddSchoolClass (Model model) {
+        model.addAttribute("schoolClass", new SchoolClass());
         return "admin/schoolClass/addSchoolClass";
     }
 
-    @PostMapping("/addSchoolClass")
+    @PostMapping("/schoolClass/addSchoolClass")
     public String addSchoolClass (@ModelAttribute SchoolClass schoolClass) {
         schoolClassRepository.save(schoolClass);
-        return "redirect:/admin/schoolClass/addSchoolClass";
+        return "redirect:admin/schoolClass/addSchoolClass";
     }
 }

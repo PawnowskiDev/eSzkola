@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser (MyUser myUser) {
+    public void saveUser(MyUser myUser) {
         userRepository.save(myUser);
     }
 
@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long userId) {
         userMap.remove(userId);
     }
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
         return password.matches("(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}");
 
     }
+
     @Override
     public void validateEmailFormat(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -107,12 +109,16 @@ public class UserServiceImpl implements UserService {
         if (myUser.getGender() == null || myUser.getGender().isEmpty()) {
             throw new IllegalArgumentException("Gender cannot be empty");
         }
-        if (myUser.getUserType() == null ) {
+        if (myUser.getUserType() == null) {
             throw new IllegalArgumentException("User Type cannot be empty");
         }
 
         validateEmailFormat(myUser.getEmail());
     }
 
-
+    @Override
+    public List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword) {
+        return null;
+    }
 }
+
