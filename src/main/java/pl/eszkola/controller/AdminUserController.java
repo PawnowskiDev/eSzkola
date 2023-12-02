@@ -9,7 +9,7 @@ import pl.eszkola.model.MyUser;
 import pl.eszkola.service.UserService;
 
 @Controller
-@RequestMapping("/admin/user")
+@RequestMapping("/admin")
 public class AdminUserController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class AdminUserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin/user/list";
@@ -56,4 +56,6 @@ public class AdminUserController {
         userService.deleteUser(userId);
         return "redirect:/admin/user";
     }
+
+
 }

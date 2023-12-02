@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import pl.eszkola.model.MyUser;
+import pl.eszkola.model.SchoolClass;
+import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.repository.UserRepository;
 import java.security.SecureRandom;
 import java.util.Random;
@@ -14,9 +16,13 @@ public class AdminServiceImpl implements AdminService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AdminServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final SchoolClassRepository schoolClassRepository;
+
+
+    public AdminServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, SchoolClassRepository schoolClassRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @Override
@@ -115,6 +121,29 @@ public class AdminServiceImpl implements AdminService {
 
         if (!email.matches(emailRegex)) {
             throw new IllegalArgumentException("Invalid email format");
+        }
+    }
+
+    @Override
+    public void addSchoolClass(SchoolClass schoolClass) {
+        // waliduje parametry dla schoolClass
+        validateSchoolClassFields(schoolClass);
+
+        // zapisuje
+        schoolClassRepository.save(schoolClass);
+
+    }
+
+    private void validateSchoolClassFields(SchoolClass schoolClass) {
+
+        if (schoolClass.getClassName() == null || schoolClass.getClassName().isEmpty()) {
+            throw new IllegalArgumentException("School Name cannot be empty");
+        }
+        if (schoolClass.getClassProfile() == null || schoolClass.getClassProfile().isEmpty()) {
+            throw new IllegalArgumentException("School Class Profile cannot be empty");
+        }
+        if (schoolClass.getIsEvening() == null) {
+            throw new IllegalArgumentException("Type of school attendance cannot be empty");
         }
     }
 }

@@ -26,6 +26,49 @@ public class SchoolClass {
         NO
     }
 
+    public SchoolClass() {
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getClassProfile() {
+        return classProfile;
+    }
+
+    public EveningType getIsEvening() {
+        return isEvening;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public void setClassProfile(String classProfile) {
+        this.classProfile = classProfile;
+    }
+
+    public void setIsEvening(EveningType isEvening) {
+        this.isEvening = isEvening;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
+    }
+
     @OneToMany(mappedBy = "schoolClass")
     private List<Grade> grades;
 }
