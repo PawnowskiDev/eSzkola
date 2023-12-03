@@ -1,12 +1,15 @@
 package pl.eszkola.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.eszkola.model.SchoolClass;
+import pl.eszkola.model.Subject;
 import pl.eszkola.repository.SchoolClassRepository;
+import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.service.AdminService;
-import pl.eszkola.service.AdminServiceImpl;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,6 +20,7 @@ public class AdminSchoolController {
 
     public AdminSchoolController(SchoolClassRepository schoolClassRepository) {
         this.schoolClassRepository = schoolClassRepository;
+
     }
 
 
@@ -31,4 +35,5 @@ public class AdminSchoolController {
         schoolClassRepository.save(schoolClass);
         return "redirect:admin/schoolClass/addSchoolClass";
     }
+
 }

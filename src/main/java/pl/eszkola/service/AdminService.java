@@ -4,6 +4,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
 import pl.eszkola.model.SchoolClass;
+import pl.eszkola.model.Subject;
 
 import java.util.List;
 
@@ -18,7 +19,14 @@ public interface AdminService {
 
     void addSchoolClass(SchoolClass schoolClass);
 
-
     List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword);
+
+    Subject createSubject(String subjectName, String subjectDescription);
+
+    void assignTeacherToSubject(Subject subject, MyUser teacher);
+
+    List<Subject> getAllSubjects();
+
+    List<MyUser> getAllTeachers();
 }
 

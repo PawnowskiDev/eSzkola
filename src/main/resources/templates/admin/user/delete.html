@@ -48,7 +48,7 @@
 </head>
 <body>
 <h1>Usuń użytkownika</h1>
-<form method="POST" th:action="@{/admin/user/deleteUser}">
+<form method="post" th:action="@{/admin/user/deleteUser}">
     <label th:for="userId">ID użytkownika:</label>
     <input type="text" id="userId" name="userId" required>
     <button type="submit">Usuń</button>

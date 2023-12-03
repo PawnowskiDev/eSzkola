@@ -6,5 +6,4 @@ import pl.eszkola.model.Subject;
 
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
-
 }

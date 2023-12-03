@@ -52,14 +52,20 @@
 
         <div>
             <a th:href="@{/admin/user/addUser}"><button>Dodaj użytkownika</button></a>
-            <a th:href="@{/admin/user/update}"><button>Edytuj użytkownika</button></a>
-            <a th:href="@{/admin/user/delete}"><button>Usuń użytkownika</button></a>
+<!--            <a th:href="@{/admin/user/editUserForm}"><button>Edytuj użytkownika</button></a>-->
+<!--            <a th:href="@{/admin/user/deleteUser}"><button>Usuń użytkownika</button></a>-->
             <a th:href="@{/admin/user/search}"><button>Wyszukaj użytkownika</button></a>
         </div>
 
     <h1>Klasa</h1>
     <div>
         <a th:href="@{/admin/schoolClass/addSchoolClass}"><button>Utwórz klase</button></a>
+    </div>
+
+    <h1>Przedmiot</h1>
+    <div>
+        <a th:href="@{/admin/subject/addSubject}"><button>Utwórz Przedmiot</button></a>
+        <a th:href="@{/admin/subject/assignTeacherToSubject}"><button>Przypisz Nauczyciela do Przedmiotu</button></a>
     </div>
 
 </body>

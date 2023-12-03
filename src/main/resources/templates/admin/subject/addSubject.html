@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Add Subject</title>
     <style>
         body {
                  font-family: Arial, sans-serif;
@@ -45,21 +45,17 @@
     </style>
 </head>
 <body>
-<h1>Dodaj klasę szkolną</h1>
-<form method="post" th:object="${schoolClass}" th:action="@{/admin/schoolClass/addSchoolClass}">
-    <label for="className">Nazwa klasy:</label>
-    <input type="text" id="className" name="className" required>
 
-    <label for="classProfile">Profil klasy:</label>
-    <input type="text" id="classProfile" name="classProfile" required>
-
-    <label for="isEvening">Tryb zajęć:</label>
-    <select id="isEvening" name="isEvening"  required>
-        <option value="yes">Wieczorowy</option>
-        <option value="no">Dzienny</option>
-    </select>
-
-    <button type="submit">Dodaj klasę szkolną</button>
+<h2>Add Subject</h2>
+<form method="post" th:action="@{/admin/subject/addSubject}" th:object="${subject}"  >
+    <label for="subjectName">Nazwa Przedmiotu:</label>
+    <input type="text" id="subjectName" name="subjectName"  required>
+    <br>
+    <label for="subjectDescription">Opis przedmiotu:</label>
+    <textarea id="subjectDescription" name="subjectDescription"  required></textarea>
+    <br>
+    <button type="submit">Dodaj przedmiot</button>
 </form>
+
 </body>
 </html>

@@ -90,7 +90,7 @@ public class AuthController {
             case "TEACHER" -> "/teacher/dashboard";
             case "STUDENT" -> "/student/dashboard";
             case "PARENT" -> "/parent/dashboard";
-            default -> "login";
+            default -> "auth/login";
         };
     }
 }

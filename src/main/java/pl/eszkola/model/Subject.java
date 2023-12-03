@@ -19,6 +19,10 @@ public class Subject {
     @Column(name = "subject_description", length = 255)
     private String subjectDescription;
 
+    @ManyToOne(optional = true) // Ustaw optional na true
+    @JoinColumn(name = "user_id")
+    private MyUser myUser;
+
     public Subject() {
     }
 

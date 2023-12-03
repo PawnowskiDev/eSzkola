@@ -1,12 +1,12 @@
 package pl.eszkola.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
-import pl.eszkola.model.MyUser;
-import pl.eszkola.model.SchoolClass;
+import pl.eszkola.model.*;
 import pl.eszkola.repository.SchoolClassRepository;
+import pl.eszkola.repository.SubjectRepository;
+import pl.eszkola.repository.TeacherSubjectRepository;
 import pl.eszkola.repository.UserRepository;
 import java.security.SecureRandom;
 import java.util.List;
@@ -15,15 +15,17 @@ import java.util.Random;
 public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private final SchoolClassRepository schoolClassRepository;
 
+    private final SubjectRepository subjectRepository;
 
-    public AdminServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, SchoolClassRepository schoolClassRepository) {
+    private TeacherSubjectRepository teacherSubjectRepository;
+
+    public AdminServiceImpl(UserRepository userRepository, SchoolClassRepository schoolClassRepository, SubjectRepository subjectRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.schoolClassRepository = schoolClassRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @Override
@@ -148,14 +150,42 @@ public class AdminServiceImpl implements AdminService {
             throw new IllegalArgumentException("Type of school attendance cannot be empty");
         }
     }
-        @Override
-        public List<MyUser> getUsersByTypeAndKeyword (String userType, String keyword){
-            if (userType.equalsIgnoreCase("teacher")) {
-                return userRepository.findTeachersByKeyword(keyword);
-            } else if (userType.equalsIgnoreCase("student")) {
-                return userRepository.findStudentsByKeyword(keyword);
-            }
-            return null;
+
+    @Override
+    public List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            return userRepository.findUsersByTypeAndKeyword(userType, keyword); // Jeśli keyword jest pusty, użyj metody bez keyworda
+        } else {
+            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userType, keyword);
+            System.out.println("Wyszukani użytkownicy: " + users);
+            return users;
         }
     }
+    @Override
+    public Subject createSubject(String subjectName, String subjectDescription) {
+        Subject newSubject = new Subject();
+        newSubject.setSubjectName(subjectName);
+        newSubject.setSubjectDescription(subjectDescription);
+        return subjectRepository.save(newSubject);
+    }
+
+    @Override
+    public void assignTeacherToSubject(Subject subject, MyUser teacher) {
+        TeacherSubject teacherSubject = new TeacherSubject();
+        teacherSubject.setSubject(subject);
+        teacherSubject.setTeacher(teacher);
+        teacherSubjectRepository.save(teacherSubject);
+    }
+    @Override
+    public List<Subject> getAllSubjects() {
+        return subjectRepository.findAll();
+    }
+    @Override
+    public List<MyUser> getAllTeachers() {
+        // Załóżmy, że masz kolumnę w encji MyUser, która oznacza, czy użytkownik jest nauczycielem.
+        // Możesz dostosować to do swojego modelu danych.
+        return userRepository.findByUserType(UserType.TEACHER);
+    }
+
+}
 

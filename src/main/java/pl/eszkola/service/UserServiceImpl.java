@@ -118,7 +118,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword) {
-        return null;
+        if (keyword == null || keyword.isEmpty()) {
+            return userRepository.findUsersByTypeAndKeyword(userType, keyword); // Jeśli keyword jest pusty, użyj metody bez keyworda
+        } else {
+            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userType, keyword);
+            System.out.println("Wyszukani użytkownicy: " + users);
+            return users;
+        }
     }
 }
 
