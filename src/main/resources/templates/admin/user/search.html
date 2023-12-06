@@ -76,20 +76,18 @@
 
         <td>
             <!-- Przycisk do przechodzenia do formularza edycji -->
-            <a th:href="@{/admin/user/editUser/{userId}">
+            <a th:href="@{/admin/user/editUser/{userId}(userId=${userId})}">
                 <button>Edytuj</button>
             </a>
 
             <!-- Przycisk do przechodzenia do formularza usuwania -->
-            <a th:href="@{/admin/user/deleteUser/{userId}">
+            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${userId})}">
                 <button>Usuń</button>
             </a>
+            <p th:text="${userId}"></p>
         </td>
     </tr>
     </tbody>
 </table>
-<div th:if="${#lists.isEmpty(users)}">
-        <p>Brak wyników dla podanej frazy wyszukiwania.</p>
-</div>
 </body>
 </html>
