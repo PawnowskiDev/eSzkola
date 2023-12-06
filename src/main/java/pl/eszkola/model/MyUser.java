@@ -91,5 +91,8 @@ public class MyUser {
         this.password = password;
     }
 
+    public Long getId() {
+        return user_id;
+    }
 }
 

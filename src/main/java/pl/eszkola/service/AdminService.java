@@ -23,7 +23,6 @@ public interface AdminService {
 
     Subject createSubject(String subjectName, String subjectDescription);
 
-    void assignTeacherToSubject(Subject subject, MyUser teacher);
 
     List<Subject> getAllSubjects();
 

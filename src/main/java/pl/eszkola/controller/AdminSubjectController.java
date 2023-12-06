@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.eszkola.model.Subject;
-import pl.eszkola.model.TeacherSubject;
 import pl.eszkola.service.AdminService;
 
 @Controller
@@ -31,19 +30,6 @@ public class AdminSubjectController {
     public String addSubject(@ModelAttribute Subject subject) {
         adminService.createSubject(subject.getSubjectName(), subject.getSubjectDescription());
         return "redirect:/admin/subject/addSubject";
-    }
-    @GetMapping("/subject/assignTeacherToSubject")
-    public String showAssignTeacherToSubject(Model model) {
-        model.addAttribute("teacherSubject", new TeacherSubject());
-        model.addAttribute("subjects", adminService.getAllSubjects());
-        model.addAttribute("teachers", adminService.getAllTeachers());
-        return "admin/subject/assignTeacherToSubject";
-    }
-
-    @PostMapping("/subject/assignTeacherToSubject")
-    public String assignTeacherToSubject(@ModelAttribute TeacherSubject teacherSubject) {
-        adminService.assignTeacherToSubject(teacherSubject.getSubject(), teacherSubject.getTeacher());
-        return "redirect:/admin/subject/assignTeacherToSubject";
     }
 
 }

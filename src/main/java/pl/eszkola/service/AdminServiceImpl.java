@@ -6,7 +6,6 @@ import org.thymeleaf.util.StringUtils;
 import pl.eszkola.model.*;
 import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.repository.SubjectRepository;
-import pl.eszkola.repository.TeacherSubjectRepository;
 import pl.eszkola.repository.UserRepository;
 import java.security.SecureRandom;
 import java.util.List;
@@ -20,7 +19,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final SubjectRepository subjectRepository;
 
-    private TeacherSubjectRepository teacherSubjectRepository;
 
     public AdminServiceImpl(UserRepository userRepository, SchoolClassRepository schoolClassRepository, SubjectRepository subjectRepository) {
         this.userRepository = userRepository;
@@ -153,10 +151,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword) {
+
+        List<UserType> userTypes = List.of(UserType.TEACHER, UserType.STUDENT);
+
         if (keyword == null || keyword.isEmpty()) {
-            return userRepository.findUsersByTypeAndKeyword(userType, keyword); // Jeśli keyword jest pusty, użyj metody bez keyworda
+            return userRepository.findUsersByTypeAndKeyword(userTypes, keyword); // Jeśli keyword jest pusty, użyj metody bez keyworda
         } else {
-            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userType, keyword);
+            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userTypes, keyword);
             System.out.println("Wyszukani użytkownicy: " + users);
             return users;
         }
@@ -169,13 +170,6 @@ public class AdminServiceImpl implements AdminService {
         return subjectRepository.save(newSubject);
     }
 
-    @Override
-    public void assignTeacherToSubject(Subject subject, MyUser teacher) {
-        TeacherSubject teacherSubject = new TeacherSubject();
-        teacherSubject.setSubject(subject);
-        teacherSubject.setTeacher(teacher);
-        teacherSubjectRepository.save(teacherSubject);
-    }
     @Override
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();

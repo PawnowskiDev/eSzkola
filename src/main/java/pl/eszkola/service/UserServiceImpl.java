@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
+import pl.eszkola.model.UserType;
 import pl.eszkola.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,10 +119,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword) {
+
+        List<UserType> userTypes = List.of(UserType.TEACHER, UserType.STUDENT);
+
         if (keyword == null || keyword.isEmpty()) {
-            return userRepository.findUsersByTypeAndKeyword(userType, keyword); // Jeśli keyword jest pusty, użyj metody bez keyworda
+            return userRepository.findUsersByTypeAndKeyword(userTypes, ""); // Jeśli keyword jest pusty, użyj metody bez keyworda
         } else {
-            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userType, keyword);
+            List<MyUser> users = userRepository.findUsersByTypeAndKeyword(userTypes, keyword);
             System.out.println("Wyszukani użytkownicy: " + users);
             return users;
         }

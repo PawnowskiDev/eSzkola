@@ -35,17 +35,6 @@ public class AdminUserController {
         return "redirect:/admin/user/add";
     }
 
-//    @GetMapping("/editUserForm")
-//    public String editUserSelectionForm(Model model) {
-//        model.addAttribute("userId", "");
-//        return "admin/user/updateUserForm";
-//    }
-//    @PostMapping("/editUserForm")
-//    public String editUserFormPost(@RequestParam("userId") Long userId) {
-//        // przeikierowanie na admin/user/editUser - formularz zmiany usera
-//        return "redirect:/admin/user/editUser/" + userId;
-//    }
-
     @PostMapping("/editUser/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
@@ -66,7 +55,7 @@ public class AdminUserController {
         return "admin/user/delete";
     }
 
-    @PostMapping("/deleteUser/{userId}")
+    @DeleteMapping("/deleteUser/{userId}")
     public String deleteUserForm(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return "redirect:/admin/user/search";

@@ -14,8 +14,9 @@ public interface UserRepository extends JpaRepository<MyUser, Long> {
 
     MyUser findByPesel(String pesel);
 
-    @Query("SELECT u FROM MyUser u WHERE u.userType = :userType AND (LOWER(u.name) LIKE %:keyword% OR LOWER(u.surname) LIKE %:keyword%)")
-    List<MyUser> findUsersByTypeAndKeyword(@Param("userType") String userType, @Param("keyword") String keyword);
+    @Query("SELECT u FROM MyUser u WHERE u.userType IN :userTypes AND (LOWER(u.name) LIKE %:keyword% OR LOWER(u.surname) LIKE %:keyword%)")
+    List<MyUser> findUsersByTypeAndKeyword(@Param("userTypes") List<UserType> userTypes, @Param("keyword") String keyword);
+
 
 
     List<MyUser> findByUserType(UserType userType);

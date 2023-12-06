@@ -74,20 +74,22 @@
         <td th:text="${user.getName()}"></td>
         <td th:text="${user.getSurname()}"></td>
 
-
         <td>
             <!-- Przycisk do przechodzenia do formularza edycji -->
-            <a th:href="@{/admin/user/editUser/{userId}(userId=${user.user_id})}">
-                <button>Edit</button>
+            <a th:href="@{/admin/user/editUser/{userId}">
+                <button>Edytuj</button>
             </a>
 
             <!-- Przycisk do przechodzenia do formularza usuwania -->
-            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${user.user_id})}">
-                <button>Delete</button>
+            <a th:href="@{/admin/user/deleteUser/{userId}">
+                <button>Usuń</button>
             </a>
         </td>
     </tr>
     </tbody>
 </table>
+<div th:if="${#lists.isEmpty(users)}">
+        <p>Brak wyników dla podanej frazy wyszukiwania.</p>
+</div>
 </body>
 </html>
