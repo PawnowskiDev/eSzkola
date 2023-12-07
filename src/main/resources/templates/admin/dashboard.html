@@ -6,44 +6,60 @@
     <title>Admin Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     background-color: #f4f4f4;
+ }
 
-        header {
-            background-color: #333;
-            padding: 10px;
-            color: white;
-            text-align: right;
-        }
+ header {
+     background-color: #333;
+     padding: 10px;
+     color: white;
+     text-align: right;
+ }
 
-        nav {
-            background-color: #ddd;
-            padding: 10px;
-        }
+ nav {
+     background-color: #ddd;
+     padding: 10px;
+ }
 
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+ nav ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     display: flex;
+ }
 
-        nav li {
-            margin-right: 20px;
-        }
+ nav li {
+     margin-right: 20px;
+ }
 
-        main {
-            padding: 20px;
-        }
+ main {
+     padding: 20px;
+ }
 
-        button {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
+ button {
+     padding: 10px;
+     font-size: 16px;
+     margin-right: 10px;
+ }
+
+ /* Dodatkowe elementy */
+ .topper {
+     background-color: #444;
+     padding: 10px;
+     color: white;
+     text-align: center;
+ }
+
+ .footer {
+     background-color: #333;
+     padding: 10px;
+     color: white;
+     text-align: center;
+ }
+
     </style>
 </head>
 <body>
@@ -65,7 +81,6 @@
     <h1>Przedmiot</h1>
     <div>
         <a th:href="@{/admin/subject/addSubject}"><button>Utwórz Przedmiot</button></a>
-        <a th:href="@{/admin/subject/assignTeacherToSubject}"><button>Przypisz Nauczyciela do Przedmiotu</button></a>
     </div>
 
 </body>

@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -94,5 +96,24 @@ public class MyUser {
     public Long getId() {
         return user_id;
     }
+
+
+    @Getter
+    @OneToMany(mappedBy = "myUser", cascade = CascadeType.ALL)
+    private List<Attendance> attendances;
+
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
+    }
+
+    public void addAttendance(Attendance attendance) {
+        if (attendances == null) {
+            attendances = new ArrayList<>();
+        }
+        attendances.add(attendance);
+        attendance.setMyUser(this);
+    }
+
 }
 

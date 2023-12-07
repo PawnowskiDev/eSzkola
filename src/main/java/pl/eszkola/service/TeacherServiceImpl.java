@@ -3,15 +3,11 @@ package pl.eszkola.service;
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.eszkola.model.Attendance;
-import pl.eszkola.model.Grade;
-import pl.eszkola.model.MyUser;
-import pl.eszkola.model.Subject;
-import pl.eszkola.repository.AttendanceRepository;
-import pl.eszkola.repository.GradesRepository;
-import pl.eszkola.repository.SubjectRepository;
-import pl.eszkola.repository.UserRepository;
+import pl.eszkola.model.*;
+import pl.eszkola.repository.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -21,11 +17,15 @@ public class TeacherServiceImpl implements TeacherService {
     private final GradesRepository gradesRepository;
     private final AttendanceRepository attendanceRepository;
 
-    public TeacherServiceImpl(UserRepository userRepository, SubjectRepository subjectRepository, GradesRepository gradesRepository, AttendanceRepository attendanceRepository) {
+    private final SchoolClassRepository schoolClassRepository;
+
+
+    public TeacherServiceImpl(UserRepository userRepository, SubjectRepository subjectRepository, GradesRepository gradesRepository, AttendanceRepository attendanceRepository, SchoolClassRepository schoolClassRepository) {
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
         this.gradesRepository = gradesRepository;
         this.attendanceRepository = attendanceRepository;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
 
@@ -65,34 +65,69 @@ public class TeacherServiceImpl implements TeacherService {
         return attendanceRecord != null && attendanceRecord.isPresent();
     }
 
+//    @Override
+//    public void excuseAttendance(String pesel) {
+//        // Znajdź użytkownika na podstawie PESEL
+//        MyUser myUser = userRepository.findByPesel(pesel);
+//
+//        if (myUser != null) {
+//            // Znajdź rekord obecności dla danego użytkownika i dzisiejszej daty
+//            Attendance attendanceRecord = (Attendance) attendanceRepository.findAttendanceByPeselAndDate(myUser.getPesel(), LocalDate.now());
+//
+//            if (attendanceRecord != null) {
+//                // Ustaw isExcused na true
+//                attendanceRecord.setExcused(Attendance.ExcuseStatus.EXCUSED);
+//
+//                // Zapisz zaktualizowany rekord obecności
+//                attendanceRepository.save(attendanceRecord);
+//            } else {
+//                // Utwórz nowy rekord obecności i ustaw isExcused
+//                Attendance newAttendanceRecord = new Attendance();
+//                newAttendanceRecord.setMyUser(myUser);  // Ustaw użytkownika
+//                newAttendanceRecord.setDate(LocalDate.now());  // Ustaw dzisiejszą datę
+//                newAttendanceRecord.setExcused(Attendance.ExcuseStatus.EXCUSED);
+//
+//                // Zapisz nowy rekord obecności
+//                attendanceRepository.save(newAttendanceRecord);
+//            }
+//        } else {
+//            throw new IllegalArgumentException("Student not found with PESEL: " + pesel);
+//        }
+//    }
+
     @Override
     public void excuseAttendance(String pesel) {
-        // Znajdź użytkownika na podstawie PESEL
         MyUser myUser = userRepository.findByPesel(pesel);
 
         if (myUser != null) {
             // Znajdź rekord obecności dla danego użytkownika i dzisiejszej daty
-            Attendance attendanceRecord = (Attendance) attendanceRepository.findAttendanceByPeselAndDate(myUser.getPesel(), LocalDate.now());
-
-            if (attendanceRecord != null) {
-                // Ustaw isExcused na true
+            List<Attendance> attendances = attendanceRepository.findAttendanceByPeselAndDate(pesel, LocalDate.now());
+            if (!attendances.isEmpty()) {
+                Attendance attendanceRecord = attendances.get(0);
                 attendanceRecord.setExcused(Attendance.ExcuseStatus.EXCUSED);
-
-                // Zapisz zaktualizowany rekord obecności
-                attendanceRepository.save(attendanceRecord);
             } else {
                 // Utwórz nowy rekord obecności i ustaw isExcused
                 Attendance newAttendanceRecord = new Attendance();
-                newAttendanceRecord.setMyUser(myUser);  // Ustaw użytkownika
-                newAttendanceRecord.setDate(LocalDate.now());  // Ustaw dzisiejszą datę
+                newAttendanceRecord.setMyUser(myUser);
+                newAttendanceRecord.setDate(LocalDate.now());
                 newAttendanceRecord.setExcused(Attendance.ExcuseStatus.EXCUSED);
-
-                // Zapisz nowy rekord obecności
-                attendanceRepository.save(newAttendanceRecord);
+                // Dodaj nowy rekord obecności do listy obecności użytkownika
+                myUser.getAttendances().add(newAttendanceRecord);
             }
+            // Zapisz użytkownika, co spowoduje również zapis nowego rekordu obecności
+            userRepository.save(myUser);
         } else {
             throw new IllegalArgumentException("Student not found with PESEL: " + pesel);
         }
+    }
+
+    public List<SchoolClass> getAllClasses() {
+        return schoolClassRepository.findAll();
+    }
+
+    public SchoolClass getClassById(Long classId) {
+        return schoolClassRepository.findById(classId)
+                .orElseThrow(() -> new EntityNotFoundException("Class not found with id: " + classId));
     }
 
 

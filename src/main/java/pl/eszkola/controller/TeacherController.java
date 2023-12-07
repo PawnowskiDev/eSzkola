@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.service.TeacherService;
 
 @Controller
@@ -15,9 +16,12 @@ public class TeacherController {
 
     private final TeacherService teacherService;
 
+    private final SchoolClassRepository schoolClassRepository;
+
     @Autowired
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, SchoolClassRepository schoolClassRepository) {
         this.teacherService = teacherService;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @GetMapping("/dashboard")
@@ -62,4 +66,5 @@ public class TeacherController {
         teacherService.excuseAttendance(pesel);
         return "redirect:/teacher/dashboard";
     }
+
 }

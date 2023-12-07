@@ -51,11 +51,11 @@ public class AdminUserController {
     @GetMapping("/deleteUser/{userId}")
     public String deleteUser (@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
-        model.addAttribute("user", myUser);
+        model.addAttribute("userId", myUser);
         return "admin/user/delete";
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
+    @PostMapping("/deleteUser/{userId}")
     public String deleteUserForm(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return "redirect:/admin/user/search";

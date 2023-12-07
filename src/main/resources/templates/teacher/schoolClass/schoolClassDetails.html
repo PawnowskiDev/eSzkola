@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Dashboard</title>
+    <title>Class Details</title>
     <style>
         body {
        font-family: Arial, sans-serif;
@@ -63,7 +62,13 @@
     </style>
 </head>
 <body>
-<h1>Panel Rodzica</h1>
-<!-- Dodaj tutaj treść strony administracyjnej -->
+<h1>Twoje Klasy</h1>
+<ul>
+    <li th:each="schoolClass : ${yourClasses}">
+        <a th:href="@{/teacher/classDetails/{classId}(classId=${schoolClass.id})}">
+            <span th:text="${schoolClass.name}"></span>
+        </a>
+    </li>
+</ul>
 </body>
 </html>
