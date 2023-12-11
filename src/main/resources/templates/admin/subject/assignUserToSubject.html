@@ -60,26 +60,47 @@
             text-align: center;
         }
 
+                         form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div:last-child {
+    margin-bottom: 0;
+}
+
 </style>
 </head>
 <body>
 
 <h2>Assign Teacher to Subject</h2>
 <form th:action="@{/admin/subject/assignTeacherToSubject}" th:object="${teacherSubject}" method="post">
-    <label for="subject">Subject:</label>
-    <select id="subject" name="subject" th:field="*{subject}">
-        <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject.subjectName}"></option>
-    </select>
-    <br>
 
-    <label for="teacher">Teacher:</label>
-    <select id="teacher" name="teacher" th:field="*{teacher}">
-        <option th:each="teacher : ${teachers}" th:value="${teacher}" th:text="${teacher.fullName}"></option>
+      <div>
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject" th:field="*{subject}">
+            <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject.subjectName}"></option>
     </select>
-    <br>
+      </div>
 
-    <button type="submit">Assign Teacher</button>
+    <div>
+        <br>
+            <label for="teacher">Teacher:</label>
+            <select id="teacher" name="teacher" th:field="*{teacher}">
+                <option th:each="teacher : ${teachers}" th:value="${teacher}" th:text="${teacher.fullName}"></option>
+            </select>
+        <br>
+    </div>
+
+    <div>
+        <button type="submit">Assign Teacher</button>
+    </div>
 </form>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
 </body>
 </html>

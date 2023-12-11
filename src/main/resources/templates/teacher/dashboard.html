@@ -61,7 +61,16 @@
        color: white;
        text-align: center;
    }
+         form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
+form div:last-child {
+    margin-bottom: 0;
+}
     </style>
 </head>
 <body>
@@ -72,6 +81,8 @@
     <a th:href="@{/teacher/checkAttendance}"><button>Sprawdź obecność</button></a>
     <a th:href="@{/teacher/excuseAttendance}"><button>Usprawiedliw nieobecność</button></a>
 </div>
-
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 </body>
 </html>

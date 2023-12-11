@@ -7,6 +7,7 @@ import pl.eszkola.model.SchoolClass;
 import pl.eszkola.model.Subject;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AdminService {
     void addUser(MyUser myUser);
@@ -27,5 +28,9 @@ public interface AdminService {
     List<Subject> getAllSubjects();
 
     List<MyUser> getAllTeachers();
+
+    Object getAllUsers();
+
+    void assignUserToSubject(Long userId, Long subjectId);
 }
 

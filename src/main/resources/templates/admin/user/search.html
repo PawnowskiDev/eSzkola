@@ -60,7 +60,16 @@
             text-align: center;
         }
 
+         form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
+form div:last-child {
+    margin-bottom: 0;
+}
     </style>
 </head>
 <body>
@@ -79,16 +88,19 @@
 </form>
 
 <h2>Wyniki wyszukiwania:</h2>
+
+<div>
 <table>
     <thead>
-    <tr>
-        <th>ID</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>Pesel</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Pesel</th>
+        </tr>
     </thead>
     <tbody>
+
     <tr th:each="user : ${users}">
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getName()}"></td>
@@ -109,6 +121,13 @@
         </td>
     </tr>
     </tbody>
+
 </table>
+</div>
+
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
+
 </body>
 </html>

@@ -60,20 +60,43 @@
       text-align: center;
   }
 
+                         form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div:last-child {
+    margin-bottom: 0;
+}
+
     </style>
 </head>
 <body>
 
 <h2>Add Subject</h2>
 <form method="post" th:action="@{/admin/subject/addSubject}" th:object="${subject}"  >
-    <label for="subjectName">Nazwa Przedmiotu:</label>
-    <input type="text" id="subjectName" name="subjectName"  required>
-    <br>
-    <label for="subjectDescription">Opis przedmiotu:</label>
-    <textarea id="subjectDescription" name="subjectDescription"  required></textarea>
-    <br>
-    <button type="submit">Dodaj przedmiot</button>
+
+   <div>
+        <label for="subjectName">Nazwa Przedmiotu:</label>
+        <input type="text" id="subjectName" name="subjectName"  required>
+   </div>
+
+    <div>
+        <br>
+        <label for="subjectDescription">Opis przedmiotu:</label>
+        <textarea id="subjectDescription" name="subjectDescription"  required></textarea>
+        <br>
+    </div>
+
+    <div>
+        <button type="submit">Dodaj przedmiot</button>
+    </div>
 </form>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
 </body>
 </html>

@@ -7,8 +7,11 @@ import pl.eszkola.model.*;
 import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.repository.UserRepository;
+import pl.eszkola.repository.UserSubjectRepository;
+
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -19,11 +22,15 @@ public class AdminServiceImpl implements AdminService {
 
     private final SubjectRepository subjectRepository;
 
+    private final UserSubjectRepository userSubjectRepository;
 
-    public AdminServiceImpl(UserRepository userRepository, SchoolClassRepository schoolClassRepository, SubjectRepository subjectRepository) {
+
+    public AdminServiceImpl(UserRepository userRepository, SchoolClassRepository schoolClassRepository, SubjectRepository subjectRepository,
+                            UserSubjectRepository userSubjectRepository) {
         this.userRepository = userRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.subjectRepository = subjectRepository;
+        this.userSubjectRepository = userSubjectRepository;
     }
 
     @Override
@@ -176,10 +183,35 @@ public class AdminServiceImpl implements AdminService {
     }
     @Override
     public List<MyUser> getAllTeachers() {
-        // Załóżmy, że masz kolumnę w encji MyUser, która oznacza, czy użytkownik jest nauczycielem.
-        // Możesz dostosować to do swojego modelu danych.
         return userRepository.findByUserType(UserType.TEACHER);
     }
 
+    @Override
+    public Object getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
+    public void assignUserToSubject(Long userId, Long subjectId) {
+        MyUser user = getUserById(userId);
+        Subject subject = getSubjectById(subjectId);
+
+        if (user != null && subject != null) {
+            UserSubject userSubject = new UserSubject(user, subject);
+            userSubjectRepository.save(userSubject);
+        } else {
+            throw new EntityNotFoundException("Użytkownik lub przedmiot nie istnieje");
+        }
+    }
+
+    private Subject getSubjectById(Long subjectId) {
+        Optional<Subject> optionalSubject = subjectRepository.findById(subjectId);
+        return optionalSubject.orElse(null);
+    }
+
+    private MyUser getUserById(Long userId) {
+        Optional<MyUser> optionalUser = userRepository.findById(userId);
+        return optionalUser.orElse(null);
+    }
 }
 

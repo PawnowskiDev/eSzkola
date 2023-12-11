@@ -59,7 +59,16 @@
      color: white;
      text-align: center;
  }
+         form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
+form div:last-child {
+    margin-bottom: 0;
+}
     </style>
 </head>
 <body>
@@ -68,8 +77,6 @@
 
         <div>
             <a th:href="@{/admin/user/addUser}"><button>Dodaj użytkownika</button></a>
-<!--            <a th:href="@{/admin/user/editUserForm}"><button>Edytuj użytkownika</button></a>-->
-<!--            <a th:href="@{/admin/user/deleteUser}"><button>Usuń użytkownika</button></a>-->
             <a th:href="@{/admin/user/search}"><button>Wyszukaj użytkownika</button></a>
         </div>
 
@@ -81,7 +88,11 @@
     <h1>Przedmiot</h1>
     <div>
         <a th:href="@{/admin/subject/addSubject}"><button>Utwórz Przedmiot</button></a>
+        <a th:href="@{/admin/subject/assignUserToSubject}"><button>Przypisz Użytkownika do Przedmiotu</button></a>
     </div>
+    <footer class="footer">
+        eSzkola 2023 PawnowskiDev
+    </footer>
 
 </body>
 

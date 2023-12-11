@@ -2,8 +2,10 @@
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Przypisz użytkownika do przedmiotu</title>
+
     <style>
         body {
      font-family: Arial, sans-serif;
@@ -45,7 +47,6 @@
      margin-right: 10px;
  }
 
- /* Dodatkowe elementy */
  .topper {
      background-color: #444;
      padding: 10px;
@@ -71,35 +72,38 @@ form div:last-child {
     margin-bottom: 0;
 }
     </style>
+
 </head>
 <body>
-<h1>Dodaj klasę szkolną</h1>
-<form method="post" th:object="${schoolClass}" th:action="@{/admin/schoolClass/addSchoolClass}">
-    <div>
-        <label for="className">Nazwa klasy:</label>
-        <input type="text" id="className" name="className" required>
-    </div>
 
-    <div>
-        <label for="classProfile">Profil klasy:</label>
-        <input type="text" id="classProfile" name="classProfile" required>
-    </div>
+<h1>Przypisz użytkownika do przedmiotu</h1>
 
-    <div>
-        <label for="isEvening">Tryb zajęć:</label>
-        <select id="isEvening" name="isEvening"  required>
-            <option value="yes">Wieczorowy</option>
-            <option value="no">Dzienny</option>
+<form th:action="@{/admin/assign/userToSubject}" method="post">
+
+  <div>
+        <label for="userId">Wybierz użytkownika:</label>
+        <select id="userId" name="userId">
+            <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name + ' ' + user.surname}"></option>
         </select>
-    </div>
+  </div>
 
-    <div>
-        <button type="submit">Dodaj klasę szkolną</button>
-    </div>
+  <div>
+        <label for="subjectId">Wybierz przedmiot:</label>
+        <select id="subjectId" name="subjectId">
+            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+        </select>
+  </div>
+
+
+  <div>
+        <button type="submit">Przypisz użytkownika do przedmiotu</button>
+  </div>
+
 </form>
-<footer class="footer">
-    eSzkola 2023 PawnowskiDev
-</footer>
+
+<div th:if="${param.success}">
+    <p style="color: green;">Użytkownik został przypisany do przedmiotu.</p>
+</div>
 
 </body>
 </html>

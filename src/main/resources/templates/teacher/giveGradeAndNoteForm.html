@@ -68,20 +68,35 @@
 <h1>Wystaw ocenę</h1>
 
 <form th:action="@{/teacher/giveGradeAndNote}" method="post">
-    <label for="studentId">ID Studenta: </label>
-    <input type="text" id="studentId" name="studentId" required><br>
 
+    <div>
+        <label for="studentId">ID Studenta: </label>
+        <input type="text" id="studentId" name="studentId" required><br>
+    </div>
+
+    <div>
     <label for="subjectId">ID Przedmiotu: </label>
-    <input type="text" id="subjectId" name="subjectId" required><br>
+        <input type="text" id="subjectId" name="subjectId" required><br>
+    </div>
 
-    <label for="note">Notatka: </label>
-    <input type="text" id="note" name="note" required><br>
+    <div>
+        <label for="note">Notatka: </label>
+        <input type="text" id="note" name="note" required><br>
+    </div>
 
-    <label for="grade">Ocena: </label>
-    <input type="number" id="grade" name="grade" min="1" max="6" required><br>
+    <div>
+        <label for="grade">Ocena: </label>
+        <input type="number" id="grade" name="grade" min="1" max="6" required><br>
+    </div>
 
-    <button type="submit">Wystaw ocenę</button>
+    <div>
+        <button type="submit">Wystaw ocenę</button>
+    </div>
 </form>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
+</div>
 </body>
 </html>

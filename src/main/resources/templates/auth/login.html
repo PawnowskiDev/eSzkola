@@ -61,6 +61,17 @@
        text-align: center;
    }
 
+form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div:last-child {
+    margin-bottom: 0;
+}
+
     </style>
     <title>Login Page</title>
 </head>
@@ -74,15 +85,26 @@
     <h1>Logowanie</h1>
 
 <form th:action="@{/auth/login}" method="post">
-    <label th:for="pesel" for="pesel">PESEL:</label>
-    <input type="text" id="pesel" name="pesel" required>
 
+    <div>
+        <label th:for="pesel" for="pesel">PESEL:</label>
+        <input type="text" id="pesel" name="pesel" required>
+    </div>
+
+    <div>
     <label th:for="password">Hasło:</label>
     <input type="password" id="password" name="password" required>
+    </div>
 
+    <div>
     <button type="submit">Zaloguj się</button>
+
+    </div>
 </form>
 </main>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
 </body>
 </html>

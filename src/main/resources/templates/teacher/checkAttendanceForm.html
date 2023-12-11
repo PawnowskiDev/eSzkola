@@ -61,6 +61,16 @@
        text-align: center;
    }
 
+                 form div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div:last-child {
+    margin-bottom: 0;
+}
     </style>
 </head>
 <body>
@@ -68,17 +78,29 @@
 <h1>Sprawdź obecność</h1>
 
 <form th:action="@{/teacher/checkAttendance}" method="post">
-    <label for="pesel">PESEL Studenta: </label>
-    <input type="text" id="pesel" name="pesel" required><br>
 
-    <label for="classId">ID Klasy: </label>
-    <input type="text" id="classId" name="classId" required><br>
+    <div>
+        <label for="pesel">PESEL Studenta: </label>
+        <input type="text" id="pesel" name="pesel" required><br>
+    </div>
 
-    <label for="date">Data: </label>
-    <input type="text" id="date" name="date" required><br>
+    <div>
+        <label for="classId">ID Klasy: </label>
+        <input type="text" id="classId" name="classId" required><br>
+    </div>
 
-    <button type="submit">Sprawdź obecność</button>
+    <div>
+        <label for="date">Data: </label>
+        <input type="text" id="date" name="date" required><br>
+    </div>
+    <div>
+        <button type="submit">Sprawdź obecność</button>
+    </div>
+
 </form>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
 </body>
 </html>

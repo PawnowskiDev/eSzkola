@@ -3,10 +3,7 @@ package pl.eszkola.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.eszkola.model.Subject;
 import pl.eszkola.service.AdminService;
 
@@ -30,6 +27,19 @@ public class AdminSubjectController {
     public String addSubject(@ModelAttribute Subject subject) {
         adminService.createSubject(subject.getSubjectName(), subject.getSubjectDescription());
         return "redirect:/admin/subject/addSubject";
+    }
+
+    @GetMapping("/subject/userToSubject")
+    public String showUserToSubjectForm(Model model) {
+        model.addAttribute("users", adminService.getAllUsers());
+        model.addAttribute("subjects", adminService.getAllSubjects());
+        return "admin/assign/userToSubject";
+    }
+
+    @PostMapping("/subject/userToSubject")
+    public String assignUserToSubject(@RequestParam Long userId, @RequestParam Long subjectId) {
+        adminService.assignUserToSubject(userId, subjectId);
+        return "redirect:/admin/assign/userToSubject?success";
     }
 
 }

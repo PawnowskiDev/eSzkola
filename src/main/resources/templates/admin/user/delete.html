@@ -47,7 +47,6 @@
             margin-right: 10px;
         }
 
-        /* Dodatkowe elementy */
         .topper {
             background-color: #444;
             padding: 10px;
@@ -66,10 +65,16 @@
 </head>
 <body>
 <h1>Usuń użytkownika</h1>
-<form method="post" th:action="@{/admin/user/deleteUser}">
-    <label th:for="userId">ID użytkownika:</label>
-    <input type="text" id="userId" name="userId" required>
-    <button type="submit">Usuń</button>
-</form>
+<div>
+    <form method="post" th:action="@{/admin/user/deleteUser}">
+        <label th:for="userId">ID użytkownika:</label>
+        <input type="text" id="userId" name="userId" required>
+        <button type="submit">Usuń</button>
+    </form>
+</div>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
+
 </body>
 </html>

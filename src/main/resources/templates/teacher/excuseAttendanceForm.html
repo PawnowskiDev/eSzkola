@@ -68,11 +68,19 @@
 <h1>Usprawiedliw nieobecność</h1>
 
 <form th:action="@{/teacher/excuseAttendance}" method="post">
-    <label for="pesel">PESEL Studenta: </label>
-    <input type="text" id="pesel" name="pesel" required><br>
 
-    <button type="submit">Usprawiedliw nieobecność</button>
+    <div>
+        <label for="pesel">PESEL Studenta: </label>
+        <input type="text" id="pesel" name="pesel" required><br>
+    </div>
+
+    <div>
+        <button type="submit">Usprawiedliw nieobecność</button>
+    </div>
 </form>
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
 
 </body>
 </html>
