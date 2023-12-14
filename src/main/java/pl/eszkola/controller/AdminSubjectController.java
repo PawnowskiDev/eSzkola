@@ -5,41 +5,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.eszkola.model.Subject;
+import pl.eszkola.model.UserSubject;
 import pl.eszkola.service.AdminService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/subject")
 public class AdminSubjectController {
 
     private final AdminService adminService;
+
     @Autowired
     public AdminSubjectController(AdminService adminService) {
         this.adminService = adminService;
+
     }
 
-    @GetMapping("/subject/addSubject")
+    @GetMapping("/addSubject")
     public String showAddSubject(Model model) {
         model.addAttribute("subject", new Subject());
         return "admin/subject/addSubject";
     }
 
-    @PostMapping("/subject/addSubject")
+    @PostMapping("/addSubject")
     public String addSubject(@ModelAttribute Subject subject) {
         adminService.createSubject(subject.getSubjectName(), subject.getSubjectDescription());
         return "redirect:/admin/subject/addSubject";
     }
 
-    @GetMapping("/subject/userToSubject")
+    @GetMapping("/assignUserToSubject")
     public String showUserToSubjectForm(Model model) {
+        model.addAttribute("userSubject", adminService);
         model.addAttribute("users", adminService.getAllUsers());
         model.addAttribute("subjects", adminService.getAllSubjects());
-        return "admin/assign/userToSubject";
+        return "admin/subject/assignUserToSubject";
     }
 
-    @PostMapping("/subject/userToSubject")
+    @PostMapping("/assignUserToSubject")
     public String assignUserToSubject(@RequestParam Long userId, @RequestParam Long subjectId) {
         adminService.assignUserToSubject(userId, subjectId);
-        return "redirect:/admin/assign/userToSubject?success";
+        return "redirect:/admin/subject/assignUserToSubject?success";
     }
 
 }

@@ -80,24 +80,23 @@ form div:last-child {
 
 <form th:action="@{/admin/assign/userToSubject}" method="post">
 
-  <div>
-        <label for="userId">Wybierz użytkownika:</label>
-        <select id="userId" name="userId">
+    <div>
+        <label for="user">Wybierz użytkownika:</label>
+        <select id="user" name="userId" th:field="*{userId}">
             <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name + ' ' + user.surname}"></option>
         </select>
-  </div>
+    </div>
 
-  <div>
-        <label for="subjectId">Wybierz przedmiot:</label>
-        <select id="subjectId" name="subjectId">
+    <div>
+        <label for="subject">Wybierz przedmiot:</label>
+        <select id="subject" name="subjectId" th:field="*{subjectId}">
             <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
         </select>
-  </div>
+    </div>
 
-
-  <div>
+    <div>
         <button type="submit">Przypisz użytkownika do przedmiotu</button>
-  </div>
+    </div>
 
 </form>
 

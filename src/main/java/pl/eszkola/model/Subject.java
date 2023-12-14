@@ -53,9 +53,6 @@ public class Subject {
         this.subjectDescription = subjectDescription;
     }
 
-    @OneToMany(mappedBy = "subject")
-    private List<Grade> grades;
-
     public Integer getId() {
         return subjectId;
     }

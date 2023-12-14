@@ -74,23 +74,31 @@ form div:last-child {
 </head>
 <body>
 <h1>Wyszukaj użytkowników</h1>
+
 <form method="post" th:action="@{/admin/user/search}">
-    <label for="userType">Typ użytkownika:</label>
-    <select id="userType" name="userType" required>
-        <option value="teacher">Nauczyciel</option>
-        <option value="student">Uczeń</option>
-    </select>
-    <br>
-    <label for="keyword">Fraza wyszukiwania:</label>
-    <input type="text" id="keyword" name="keyword" required>
-    <br>
-    <button type="submit">Szukaj</button>
+
+    <div>
+        <label for="userType">Typ użytkownika:</label>
+        <select id="userType" name="userType" required>
+            <option value="teacher">Nauczyciel</option>
+            <option value="student">Uczeń</option>
+        </select>
+    </div>
+
+    <div>
+            <br>
+            <label for="keyword">Wyszukaj:</label>
+            <input type="text" id="keyword" name="keyword" required>
+        <br>
+        <button type="submit">Szukaj</button>
+    </div>
 </form>
 
 <h2>Wyniki wyszukiwania:</h2>
 
-<div>
+
 <table>
+    <div>
     <thead>
         <tr>
             <th>ID</th>
@@ -99,7 +107,11 @@ form div:last-child {
             <th>Pesel</th>
         </tr>
     </thead>
-    <tbody>
+        </div>
+
+            <div>
+
+        <tbody>
 
     <tr th:each="user : ${users}">
         <td th:text="${user.getId()}"></td>
@@ -117,13 +129,24 @@ form div:last-child {
             <a th:href="@{/admin/user/deleteUser/{userId}(userId=${userId})}">
                 <button>Usuń</button>
             </a>
+
+            <a th:href="@{/admin/subject/assignUserToSubject/{userId}(userId=${userId})}">
+                <button>Połącz z przedmiotem</button>
+            </a>
+
+            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${userId})}">
+                <button>Usuń</button>
+            </a>
+
+
             <p th:text="${userId}"></p>
         </td>
     </tr>
+
     </tbody>
+    </div>
 
 </table>
-</div>
 
 <footer class="footer">
     eSzkola 2023 PawnowskiDev

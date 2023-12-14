@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,22 +75,22 @@ form div:last-child {
 </head>
 <body>
 
-<h2>Assign Teacher to Subject</h2>
-<form th:action="@{/admin/subject/assignTeacherToSubject}" th:object="${teacherSubject}" method="post">
+<h2>Przypisz Użytkownika do Przedmiotu</h2>
+<form th:action="@{/admin/subject/assignUserToSubject}" th:object="${userSubject}" method="post">
 
-      <div>
+    <div>
         <label for="subject">Subject:</label>
-        <select id="subject" name="subject" th:field="*{subject}">
-            <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject.subjectName}"></option>
-    </select>
-      </div>
+        <select id="subject" name="subject">
+            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+        </select>
+    </div>
 
     <div>
         <br>
-            <label for="teacher">Teacher:</label>
-            <select id="teacher" name="teacher" th:field="*{teacher}">
-                <option th:each="teacher : ${teachers}" th:value="${teacher}" th:text="${teacher.fullName}"></option>
-            </select>
+        <label for="user">User:</label>
+        <select id="user" name="user">
+            <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.fullName}"></option>
+        </select>
         <br>
     </div>
 
