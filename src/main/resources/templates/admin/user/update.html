@@ -92,42 +92,67 @@ form div:last-child {
 
 <div class="edit-form" >
     <h1>Edytuj użytkownika</h1>
-
     <form method="post" th:action="@{/admin/user/editUser/{userId}}">
+
+<div>
     <label for="userId">ID użytkownika:</label>
     <input type="text" id="userId" name="userId" required>
+</div>
 
+<div>
     <label th:for="name">Name:</label>
     <input type="text" id="name" name="name" required>
+</div>
 
+<div>
     <label th:for="surname">Surname:</label>
     <input type="text" id="surname" name="surname"  required>
+</div>
 
+<div>
     <label th:for="address">Address:</label>
     <input type="text" id="address" name="address"  required>
+</div>
 
+<div>
     <label th:for="pesel">PESEL:</label>
     <input type="text" id="pesel" name="pesel"  required>
+</div>
 
+<div>
     <label th:for="phone1">Phone 1:</label>
     <input type="text" id="phone1" name="phone1"  required>
+</div>
 
+<div>
     <label th:for="phone2">Phone 2:</label>
     <input type="text" id="phone2" name="phone2" >
+</div>
 
+<div>
     <label th:for="dateOfBirth">Date of Birth:</label>
     <input type="text" id="dateOfBirth" name="dateOfBirth"  required>
+</div>
 
+<div>
     <label th:for="gender">Gender:</label>
     <input type="text" id="gender" name="gender"  required>
+</div>
 
+<div>
     <label th:for="userType">User Type:</label>
     <input type="text" id="userType" name="userType"  required>
+</div>
 
+<div>
     <label th:for="email">Email:</label>
     <input type="text" id="email" name="email"  required>
+</div>
 
+<div>
     <button type="submit">Zapisz zmiany</button>
+</div>
+
 </form>
 </div>
 

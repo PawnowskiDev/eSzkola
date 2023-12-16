@@ -120,22 +120,18 @@ form div:last-child {
         <td th:text="${user.getPesel()}"></td>
 
         <td>
-            <!-- Przycisk do przechodzenia do formularza edycji -->
-            <a th:href="@{/admin/user/editUser/{userId}(userId=${userId})}">
+
+            <a th:href="@{/admin/user/editUser/{userId}(userId=${user.getId()})}">
                 <button>Edytuj</button>
             </a>
 
-            <!-- Przycisk do przechodzenia do formularza usuwania -->
-            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${userId})}">
+
+            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${user.getId()})}">
                 <button>Usuń</button>
             </a>
 
             <a th:href="@{/admin/subject/assignUserToSubject/{userId}(userId=${userId})}">
                 <button>Połącz z przedmiotem</button>
-            </a>
-
-            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${userId})}">
-                <button>Usuń</button>
             </a>
 
 

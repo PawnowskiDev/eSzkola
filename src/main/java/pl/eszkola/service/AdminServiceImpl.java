@@ -35,34 +35,29 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addUser(MyUser myUser) {
-        // Sprawdzamy, czy użytkownik o danym email już istnieje
+
         if (userRepository.existsByEmail(myUser.getPesel())) {
             throw new RuntimeException("User with this PESEL already exists");
         }
-        // walidacja innych pól użytkownika przed zapisaniem
         validateUserFields(myUser);
-
-        // Zapisujemy użytkownika
         userRepository.save(myUser);
     }
 
     @Override
     public void deleteUser(Long userId) {
-        //  czy użytkownik istnieje
+
         MyUser userToDelete = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        // Usuwamy użytkownika
         userRepository.delete(userToDelete);
     }
 
     @Override
     public void updateUser(Long userId, MyUser updatedUser) {
-        // użytkownik istnieje
+
         MyUser existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        // Aktualizujemy dane użytkownika
         existingUser.setName(updatedUser.getName());
         existingUser.setSurname(updatedUser.getSurname());
         existingUser.setEmail(updatedUser.getEmail());
@@ -75,7 +70,6 @@ public class AdminServiceImpl implements AdminService {
         existingUser.setUserType(updatedUser.getUserType());
 
 
-        // Zapisujemy zaktualizowanego użytkownika
         userRepository.save(existingUser);
     }
 

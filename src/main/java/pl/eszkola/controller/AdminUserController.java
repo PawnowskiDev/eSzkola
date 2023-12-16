@@ -35,14 +35,14 @@ public class AdminUserController {
         return "redirect:/admin/user/add";
     }
 
-    @PostMapping("/editUser/{userId}")
+    @GetMapping("/editUser/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
         model.addAttribute("user", myUser);
         return "admin/user/update";
     }
 
-    @GetMapping("/editUser/{userId}")
+    @PostMapping("/editUser/{userId}")
     public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
         userService.updateUser(userId, myUser);
         return "redirect:/admin/user/search";
@@ -51,7 +51,7 @@ public class AdminUserController {
     @GetMapping("/deleteUser/{userId}")
     public String deleteUser (@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
-        model.addAttribute("userId", myUser);
+        model.addAttribute("user", myUser);
         return "admin/user/delete";
     }
 
