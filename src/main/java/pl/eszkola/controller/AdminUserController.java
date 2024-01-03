@@ -1,8 +1,11 @@
 package pl.eszkola.controller;
 
+import jakarta.validation.Valid;
+import org.hibernate.engine.jdbc.mutation.spi.BindingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.eszkola.model.MyUser;
 
@@ -30,7 +33,7 @@ public class AdminUserController {
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute MyUser myUser) {
-        // tutaj metoda generowania randomowego hasła
+
         userService.saveUser(myUser);
         return "redirect:/admin/user/add";
     }

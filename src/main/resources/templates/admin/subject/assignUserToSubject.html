@@ -45,7 +45,6 @@
             margin-right: 10px;
         }
 
-        /* Dodatkowe elementy */
         .topper {
             background-color: #444;
             padding: 10px;
@@ -81,7 +80,7 @@ form div:last-child {
     <div>
         <label for="subject">Subject:</label>
         <select id="subject" name="subject">
-            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+            <option th:each="subject : ${subjects}" th:value="${subject.getSubjectId}" th:text="${subject.getSubjectName()}"></option>
         </select>
     </div>
 
@@ -89,7 +88,7 @@ form div:last-child {
         <br>
         <label for="user">User:</label>
         <select id="user" name="user">
-            <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.fullName}"></option>
+            <option th:each="user : ${users}"  th:value="${user.getUser_id()}" th:text="${user.getName()} + ' ' + ${user.getSurname()}"></option>
         </select>
         <br>
     </div>

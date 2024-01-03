@@ -1,6 +1,7 @@
 package pl.eszkola.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +19,9 @@ public class MyUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long user_id;
+
     @Column(name = "name")
+    @NotBlank
     private String name;
     @Column(name = "surname")
     private String surname;

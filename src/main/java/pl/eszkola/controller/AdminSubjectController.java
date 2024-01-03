@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.eszkola.model.MyUser;
 import pl.eszkola.model.Subject;
 import pl.eszkola.model.UserSubject;
+import pl.eszkola.repository.SubjectRepository;
+import pl.eszkola.repository.UserRepository;
 import pl.eszkola.service.AdminService;
 
 @Controller
@@ -34,7 +37,7 @@ public class AdminSubjectController {
 
     @GetMapping("/assignUserToSubject")
     public String showUserToSubjectForm(Model model) {
-        model.addAttribute("userSubject", adminService);
+        model.addAttribute("userSubject", new UserS);
         model.addAttribute("users", adminService.getAllUsers());
         model.addAttribute("subjects", adminService.getAllSubjects());
         return "admin/subject/assignUserToSubject";
