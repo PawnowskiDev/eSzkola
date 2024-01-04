@@ -79,7 +79,7 @@ form div:last-child {
 
     <div>
         <label for="subject">Subject:</label>
-        <select id="subject" name="subject">
+        <select id="subject" name="subjectId">
             <option th:each="subject : ${subjects}" th:value="${subject.getSubjectId}" th:text="${subject.getSubjectName()}"></option>
         </select>
     </div>
@@ -87,14 +87,14 @@ form div:last-child {
     <div>
         <br>
         <label for="user">User:</label>
-        <select id="user" name="user">
+        <select id="user" name="userId">
             <option th:each="user : ${users}"  th:value="${user.getUser_id()}" th:text="${user.getName()} + ' ' + ${user.getSurname()}"></option>
         </select>
         <br>
     </div>
 
     <div>
-        <button type="submit">Assign Teacher</button>
+        <button type="submit">Przypisz</button>
     </div>
 </form>
 <footer class="footer">
