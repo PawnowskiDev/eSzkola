@@ -25,11 +25,11 @@ public class Grade {
     @JoinColumn(name = "schoolClass_id", nullable = false)
     private SchoolClass schoolClass;
 
+    @Column(name = "grade", nullable = false)
     private double grade;
 
+    @Column(name = "note", nullable = false)
     private String note;
-
-    // konstruktor, gettery, settery...
 
     public void setId(Long id) {
         this.id = id;

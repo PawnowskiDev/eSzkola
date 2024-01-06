@@ -36,4 +36,6 @@ public class AdminSchoolController {
         return "redirect:admin/schoolClass/addSchoolClass";
     }
 
+
+
 }

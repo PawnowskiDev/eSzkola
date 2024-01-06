@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
+import pl.eszkola.model.Subject;
 import pl.eszkola.model.UserType;
 import pl.eszkola.repository.UserRepository;
 import java.util.ArrayList;
@@ -129,6 +130,21 @@ public class UserServiceImpl implements UserService {
             System.out.println("Wyszukani użytkownicy: " + users);
             return users;
         }
+    }
+
+    @Override
+    public MyUser findById(String name) {
+        return null;
+    }
+
+    @Override
+    public MyUser findByUsername(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Subject> findByUserType(MyUser user) {
+        return null;
     }
 }
 

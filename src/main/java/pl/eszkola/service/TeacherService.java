@@ -1,16 +1,18 @@
 package pl.eszkola.service;
 
 import org.springframework.stereotype.Service;
+import pl.eszkola.model.MyUser;
+import pl.eszkola.model.SchoolClass;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TeacherService {
 
-    void giveGradeAndNote(Long studentId, Long subjectId, String note, double grade);
 
-    boolean checkAttendance(String pesel, Long classId, LocalDate date);
+    MyUser getTeacherByUsername(String username);
 
-    void excuseAttendance(String pesel);
+    List<SchoolClass> getTeacherClasses(MyUser teacher);
 
-
+    List<MyUser> getStudentsInClass(SchoolClass schoolClass);
 }

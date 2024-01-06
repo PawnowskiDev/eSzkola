@@ -100,23 +100,13 @@ public class MyUser {
         return user_id;
     }
 
+    @OneToMany(mappedBy = "teacher")
+    private List<SchoolClass> schoolClasses;
 
-    @Getter
-    @OneToMany(mappedBy = "myUser", cascade = CascadeType.ALL)
-    private List<Attendance> attendances;
+    @ManyToOne
+    @JoinColumn(name = "schoolClass_id")
+    private SchoolClass schoolClass;
 
-
-    public void setAttendances(List<Attendance> attendances) {
-        this.attendances = attendances;
-    }
-
-    public void addAttendance(Attendance attendance) {
-        if (attendances == null) {
-            attendances = new ArrayList<>();
-        }
-        attendances.add(attendance);
-        attendance.setMyUser(this);
-    }
 
 }
 

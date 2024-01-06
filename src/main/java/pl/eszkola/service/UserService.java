@@ -2,6 +2,7 @@ package pl.eszkola.service;
 
 import org.springframework.stereotype.Service;
 import pl.eszkola.model.MyUser;
+import pl.eszkola.model.Subject;
 
 import java.util.List;
 @Service
@@ -28,4 +29,10 @@ public interface UserService {
     void validateUserFields(MyUser myUser);
 
     List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword);
+
+    MyUser findById(String name);
+
+    MyUser findByUsername(String name);
+
+    List<Subject> findByUserType(MyUser user);
 }

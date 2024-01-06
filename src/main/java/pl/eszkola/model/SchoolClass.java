@@ -71,4 +71,7 @@ public class SchoolClass {
 
     @OneToMany(mappedBy = "schoolClass")
     private List<Grade> grades;
+
+    @OneToMany(mappedBy = "schoolClass")
+    private List<MyUser> students;
 }
