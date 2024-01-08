@@ -7,10 +7,8 @@ import pl.eszkola.model.MyUser;
 import pl.eszkola.model.Subject;
 import pl.eszkola.model.UserType;
 import pl.eszkola.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @Service
 @Primary
@@ -133,8 +131,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public MyUser findById(String name) {
-        return null;
+    public MyUser findById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
     }
 
     @Override

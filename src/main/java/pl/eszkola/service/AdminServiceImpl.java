@@ -168,6 +168,7 @@ public class AdminServiceImpl implements AdminService {
         Subject newSubject = new Subject();
         newSubject.setSubjectName(subjectName);
         newSubject.setSubjectDescription(subjectDescription);
+        newSubject.setIsEvening(SchoolClass.EveningType.NO);
         return subjectRepository.save(newSubject);
     }
 

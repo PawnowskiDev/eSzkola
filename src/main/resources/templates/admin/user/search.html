@@ -126,13 +126,10 @@ form div:last-child {
             </a>
 
 
-            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${user.getId()})}">
+            <a th:href="@{/admin/user/deleteUser/{userId}(userId=${user.getUser_id()})}">
                 <button>Usuń</button>
             </a>
 
-            <a th:href="@{/admin/subject/assignUserToSubject/{userId}(userId=${userId})}">
-                <button>Połącz z przedmiotem</button>
-            </a>
 
 
             <p th:text="${userId}"></p>

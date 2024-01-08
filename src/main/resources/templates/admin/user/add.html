@@ -74,9 +74,9 @@ margin-bottom: 0;
     </style>
 </head>
 <body>
-<h1>Add User</h1>
+<h1>Dodaj użytkownika</h1>
 
-<form method="post" th:object="${user}" th:action="@{/admin/users/add}">
+<form method="post" th:object="${user}" th:action="@{/admin/users/addUser}">
 
    <div>
         <label for="name">Name:</label>
@@ -138,9 +138,6 @@ margin-bottom: 0;
    </div>
 
 </form>
-    <div>
-        <a th:href="@{/admin/dashboard}"><button>Powrót do Panelu Administratora</button></a>
-    </div>
 
 <footer class="footer">
     eSzkola 2023 PawnowskiDev

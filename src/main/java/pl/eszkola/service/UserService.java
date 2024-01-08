@@ -30,7 +30,7 @@ public interface UserService {
 
     List<MyUser> getUsersByTypeAndKeyword(String userType, String keyword);
 
-    MyUser findById(String name);
+    MyUser findById(Long userId);
 
     MyUser findByUsername(String name);
 

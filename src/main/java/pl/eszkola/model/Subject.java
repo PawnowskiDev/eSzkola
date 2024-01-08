@@ -56,6 +56,9 @@ public class Subject {
     public Integer getId() {
         return subjectId;
     }
+
+    public void setIsEvening(SchoolClass.EveningType eveningType) {
+    }
 }
 
 

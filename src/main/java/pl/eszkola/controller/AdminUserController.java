@@ -33,7 +33,6 @@ public class AdminUserController {
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute MyUser myUser) {
-
         userService.saveUser(myUser);
         return "redirect:/admin/user/add";
     }
@@ -52,17 +51,40 @@ public class AdminUserController {
     }
 
     @GetMapping("/deleteUser/{userId}")
-    public String deleteUser (@PathVariable Long userId, Model model) {
-        MyUser myUser = userService.getUserById(userId);
-        model.addAttribute("user", myUser);
-        return "admin/user/delete";
+    public String showDeleteUserForm (@RequestParam Long userId, Model model) {
+        try {
+            MyUser myUser = userService.getUserById(userId);
+            model.addAttribute("user", myUser);
+            return "admin/user/delete";
+        } catch (Exception e) {
+            e.printStackTrace(); // Wyświetlenie informacji o błędzie w konsoli
+            return "redirect:/admin/user/delete";
+        }
     }
 
-    @PostMapping("/deleteUser/{userId}")
-    public String deleteUserForm(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return "redirect:/admin/user/search";
+    @PostMapping("/deleteUser")
+    public String deleteUserForm(@RequestParam Long userId) {
+        try {
+            userService.deleteUser(userId);
+            return "redirect:/admin/user/search";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/admin/user/search";
+        }
     }
+
+//    @GetMapping("/deleteUser/{userId}")
+//    public String deleteUser (@PathVariable Long userId, Model model) {
+//        MyUser myUser = userService.getUserById(userId);
+//        model.addAttribute("user", myUser);
+//        return "admin/user/delete";
+//    }
+//
+//    @PostMapping("/deleteUser/{userId}")
+//    public String deleteUserForm(@PathVariable Long userId) {
+//        userService.deleteUser(userId);
+//        return "redirect:/admin/user/search";
+//    }
 
     @GetMapping("/search")
     public String searchUsersForm() {
