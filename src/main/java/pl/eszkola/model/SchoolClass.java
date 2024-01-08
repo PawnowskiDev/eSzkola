@@ -69,6 +69,9 @@ public class SchoolClass {
         this.grades = grades;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private MyUser teacher;
     @OneToMany(mappedBy = "schoolClass")
     private List<Grade> grades;
 

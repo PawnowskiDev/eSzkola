@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Teacher Dashboard</title>
+    <title>Panel Nauczyciela</title>
     <style>
         body {
           font-family: Arial, sans-serif;
@@ -77,13 +77,14 @@
 
 <h3>Twoje Klasy:</h3>
 <div>
-<ul>
-    <li th:each="schoolClass : ${teacherClasses}">
-        <a th:href="@{'/teacher/class/' + ${schoolClass.id}}">
-            <span th:text="${schoolClass.className}"></span>
-        </a>
-    </li>
-</ul>
+    <form action="/teacher/classDetails" method="post">
+        <label for="schoolClassId">Wybierz klasę:</label>
+        <select id="schoolClassId" name="schoolClassId">
+            <option th:each="schoolClass : ${allClasses}" th:value="${schoolClass.getClassId()}" th:text="${schoolClass.getClassName()}"></option>
+        </select>
+        <br>
+        <button type="submit">Wyświetl szczegóły</button>
+    </form>
 </div>
 <footer class="footer">
     eSzkola 2023 PawnowskiDev

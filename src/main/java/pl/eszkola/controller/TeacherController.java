@@ -1,5 +1,6 @@
 package pl.eszkola.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,6 @@ import pl.eszkola.repository.SchoolClassRepository;
 import pl.eszkola.service.TeacherService;
 import pl.eszkola.service.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -28,13 +28,34 @@ public class TeacherController {
     }
 
     @GetMapping("/dashboard")
-    public String teacherDashboard(Model model, Principal principal) {
-        MyUser teacher = teacherService.getTeacherByUsername(principal.getName());
-        List<SchoolClass> teacherClasses = teacherService.getTeacherClasses(teacher);
-        model.addAttribute("teacherClasses", teacherClasses);
-        return "teacher/dashboard";
+    public String teacherDashboard(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId != null) {
+            MyUser teacher = userService.getUserById(userId);
+            List<SchoolClass> teacherClasses = teacherService.getTeacherClasses(teacher);
+            model.addAttribute("teacherClasses", teacherClasses);
+            model.addAttribute("userId", userId);
+
+            return "teacher/dashboard";
+        } else {
+            return "redirect:/login";
+        }
     }
 
+    @GetMapping("/classDetailsForm")
+    public String classDetailsForm(Model model) {
+        List<SchoolClass> allClasses = teacherService.getAllClasses();
+        model.addAttribute("allClasses", allClasses);
+        return "teacher/classDetailsForm";
+    }
 
-
+    @PostMapping("/classDetails")
+    public String viewClassDetails(@RequestParam Long schoolClassId, Model model) {
+        SchoolClass schoolClass = teacherService.getClassDetails(schoolClassId);
+        model.addAttribute("schoolClass", schoolClass);
+        return "teacher/classDetails";
+    }
 }
+
+

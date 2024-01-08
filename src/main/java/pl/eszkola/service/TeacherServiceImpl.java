@@ -5,6 +5,7 @@ import pl.eszkola.model.*;
 import pl.eszkola.repository.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -25,8 +26,8 @@ public class TeacherServiceImpl implements TeacherService {
         this.schoolClassRepository = schoolClassRepository;
     }
     @Override
-    public MyUser getTeacherByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public MyUser getTeacherByName(String name) {
+        return userRepository.findByName(name);
     }
 
     @Override
@@ -37,6 +38,17 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<MyUser> getStudentsInClass(SchoolClass schoolClass) {
         return userRepository.findBySchoolClass(schoolClass);
+    }
+
+    @Override
+    public SchoolClass getClassDetails(Long schoolClassId) {
+        Optional<SchoolClass> optionalSchoolClass = schoolClassRepository.findById(schoolClassId);
+        return optionalSchoolClass.orElse(null);
+    }
+
+    @Override
+    public List<SchoolClass> getAllClasses() {
+        return schoolClassRepository.findAll();
     }
 
 }

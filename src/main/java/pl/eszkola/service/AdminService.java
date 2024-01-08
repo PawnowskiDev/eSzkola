@@ -32,5 +32,9 @@ public interface AdminService {
     Object getAllUsers();
 
     void assignUserToSubject(Long userId, Long subjectId);
+
+    Object getAllClass();
+
+    void assignUserToClass(Long user, Long subject);
 }
 

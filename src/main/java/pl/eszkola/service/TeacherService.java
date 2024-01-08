@@ -10,9 +10,14 @@ import java.util.List;
 public interface TeacherService {
 
 
-    MyUser getTeacherByUsername(String username);
+    MyUser getTeacherByName(String name);
+
 
     List<SchoolClass> getTeacherClasses(MyUser teacher);
 
     List<MyUser> getStudentsInClass(SchoolClass schoolClass);
+
+    SchoolClass getClassDetails(Long schoolClassId);
+
+    List<SchoolClass> getAllClasses();
 }

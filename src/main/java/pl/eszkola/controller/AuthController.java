@@ -1,6 +1,7 @@
 package pl.eszkola.controller;
 
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +30,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam String pesel, @RequestParam String password, Model model) {
+    public String loginUser(@RequestParam String pesel, @RequestParam String password, HttpSession httpSession, Model model) {
         MyUser myUser = userService.getUserByPESEL(pesel);
 
         if (myUser != null) {
             if (passwordEncoder.matches(password, myUser.getPassword())) {
-                String redirectPath = determineRedirectPath(myUser);
-                return "redirect:" + redirectPath;
+                httpSession.setAttribute("userId", myUser.getId());
+                return "redirect:" + determineRedirectPath(myUser);
             } else {
                 model.addAttribute("error", "Błędne hasło");
             }

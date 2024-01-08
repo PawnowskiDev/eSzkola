@@ -4,10 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import pl.eszkola.model.*;
-import pl.eszkola.repository.SchoolClassRepository;
-import pl.eszkola.repository.SubjectRepository;
-import pl.eszkola.repository.UserRepository;
-import pl.eszkola.repository.UserSubjectRepository;
+import pl.eszkola.repository.*;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -24,13 +21,16 @@ public class AdminServiceImpl implements AdminService {
 
     private final UserSubjectRepository userSubjectRepository;
 
+    private final UserSchoolClassRepository userSchoolClassRepository;
+
 
     public AdminServiceImpl(UserRepository userRepository, SchoolClassRepository schoolClassRepository, SubjectRepository subjectRepository,
-                            UserSubjectRepository userSubjectRepository) {
+                            UserSubjectRepository userSubjectRepository, UserSchoolClassRepository userSchoolClassRepository) {
         this.userRepository = userRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.subjectRepository = subjectRepository;
         this.userSubjectRepository = userSubjectRepository;
+        this.userSchoolClassRepository = userSchoolClassRepository;
     }
 
     @Override
@@ -198,6 +198,25 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
+    public Object getAllClass() {
+        return null;
+    }
+
+    @Override
+    public void assignUserToClass(Long userId, Long classId) {
+        MyUser user = getUserById(userId);
+        SchoolClass schoolClass = getSchoolClassById(classId);
+
+        if(user != null && schoolClass != null) {
+            UserSchoolClass userSchoolClass = new UserSchoolClass(user, schoolClass);
+            userSchoolClassRepository.save(userSchoolClass);
+        } else {
+            throw new EntityNotFoundException("Użytkownik lub klasa nie istnieje");
+        }
+
+    }
+
     private Subject getSubjectById(Long subjectId) {
         Optional<Subject> optionalSubject = subjectRepository.findById(subjectId);
         return optionalSubject.orElse(null);
@@ -206,6 +225,11 @@ public class AdminServiceImpl implements AdminService {
     private MyUser getUserById(Long userId) {
         Optional<MyUser> optionalUser = userRepository.findById(userId);
         return optionalUser.orElse(null);
+    }
+
+    private SchoolClass getSchoolClassById(Long classId) {
+        Optional<SchoolClass> optionalSchoolClass = schoolClassRepository.findById(classId);
+        return optionalSchoolClass.orElse(null);
     }
 }
 

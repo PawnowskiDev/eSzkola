@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<MyUser, Long> {
 
     List<MyUser> findByUserType(UserType userType);
 
-    MyUser findByUsername(String username);
+    MyUser findByName(String name);
 
     List<MyUser> findBySchoolClass(SchoolClass schoolClass);
 }

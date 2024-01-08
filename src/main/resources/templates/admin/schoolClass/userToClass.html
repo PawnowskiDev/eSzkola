@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Przypisz użytkownika do przedmiotu</title>
+    <title>Przypisz użytkownika do Klasy</title>
 
     <style>
         body {
@@ -76,21 +76,21 @@ form div:last-child {
 </head>
 <body>
 
-<h1>Przypisz użytkownika do przedmiotu</h1>
+<h1>Przypisz użytkownika do Klasy</h1>
 
-<form th:action="@{/admin/assign/userToSubject}" method="post">
+<form th:action="@{/admin/assign/userToSubject}" th:object="${userSchoolClass}" method="post">
 
     <div>
-        <label for="user">Wybierz użytkownika:</label>
-        <select id="user" name="userId" th:field="*{userId}">
-            <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name + ' ' + user.surname}"></option>
+        <label for="user">User</label>
+        <select id="user" name="userId">
+            <option th:each="user : ${users}" th:value="${user.getUser_id()}" th:text="${user.getName()} + ' ' + ${user.getSurname()}"></option>
         </select>
     </div>
 
     <div>
-        <label for="subject">Wybierz przedmiot:</label>
-        <select id="subject" name="subjectId" th:field="*{subjectId}">
-            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+        <label for="schoolClass">Class</label>
+        <select id="schoolClass" name="classId">
+            <option th:each="schoolClass : ${schoolClasses}" th:value="${schoolClass.getClassId()}" th:text="${schoolClass.getClassName()}"></option>
         </select>
     </div>
 

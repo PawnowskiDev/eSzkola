@@ -123,7 +123,18 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>4.0.1</version> <!-- Wybierz odpowiednią wersję -->
+				<scope>provided</scope>
+			</dependency>
+
 		</dependencies>
+
+
+
 	</dependencyManagement>
 
 	<build>

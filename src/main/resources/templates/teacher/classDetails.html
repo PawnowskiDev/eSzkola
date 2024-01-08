@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły Klasy</title>
+</head>
+<body>
+<h2>Szczegóły Klasy</h2>
+
+<div>
+    <h3>Nazwa Klasy: <span th:text="${schoolClass.className}"></span></h3>
+    <p>Liczba Uczniów: <span th:text="${schoolClass.students.size()}"></span></p>
+
+    <h4>Lista Uczniów:</h4>
+    <ul>
+        <li th:each="student : ${schoolClass.students}">
+            <span th:text="${student.name} + ' ' + ${student.surname}"></span>
+        </li>
+    </ul>
+</div>
+
+<footer class="footer">
+    eSzkola 2023 PawnowskiDev
+</footer>
+</body>
+</html>

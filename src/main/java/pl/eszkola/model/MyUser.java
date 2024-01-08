@@ -100,6 +100,7 @@ public class MyUser {
         return user_id;
     }
 
+
     @OneToMany(mappedBy = "teacher")
     private List<SchoolClass> schoolClasses;
 
