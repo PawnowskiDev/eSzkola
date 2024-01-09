@@ -1,14 +1,12 @@
 package pl.eszkola.controller;
 
-import jakarta.validation.Valid;
-import org.hibernate.engine.jdbc.mutation.spi.BindingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.eszkola.model.MyUser;
 
+import pl.eszkola.service.AdminService;
 import pl.eszkola.service.UserService;
 
 import java.util.List;
@@ -19,9 +17,12 @@ public class AdminUserController {
 
     private final UserService userService;
 
+    private final AdminService adminService;
+
     @Autowired
-    public AdminUserController(UserService userService) {
+    public AdminUserController(UserService userService, AdminService adminService) {
         this.userService = userService;
+        this.adminService = adminService;
     }
 
 
@@ -32,15 +33,19 @@ public class AdminUserController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute MyUser myUser) {
+    public String addUser(@ModelAttribute MyUser myUser, Model model) {
         userService.saveUser(myUser);
-        return "redirect:/admin/user/add";
+        model.addAttribute("user", new MyUser());
+        return "admin/user/add";
     }
+
+    // todo nie aktualizuje danych
 
     @GetMapping("/editUser/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
         MyUser myUser = userService.getUserById(userId);
         model.addAttribute("user", myUser);
+        model.addAttribute("userId", userId);
         return "admin/user/update";
     }
 
@@ -51,18 +56,18 @@ public class AdminUserController {
     }
 
     @GetMapping("/deleteUser/{userId}")
-    public String showDeleteUserForm (@RequestParam Long userId, Model model) {
+    public String deleteUser (@PathVariable Long userId, Model model) {
         try {
             MyUser myUser = userService.getUserById(userId);
             model.addAttribute("user", myUser);
             return "admin/user/delete";
         } catch (Exception e) {
-            e.printStackTrace(); // Wyświetlenie informacji o błędzie w konsoli
+            e.printStackTrace();
             return "redirect:/admin/user/delete";
         }
     }
 
-    @PostMapping("/deleteUser")
+    @PostMapping("/deleteUser/{userID}")
     public String deleteUserForm(@RequestParam Long userId) {
         try {
             userService.deleteUser(userId);

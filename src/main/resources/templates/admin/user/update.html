@@ -75,29 +75,9 @@ form div:last-child {
 </head>
 <body>
 
-<div class="user-details">
-    <h2>Dane użytkownika</h2>
-    <p th:if="${user != null}" th:text="${user.getName()}"></p>
-    <p th:if="${user != null}" th:text="${user.getSurname()}"></p>
-    <p th:if="${user != null}" th:text="${user.getAdress()}"></p>
-    <p th:if="${user != null}" th:text="${user.getPesel()}"></p>
-    <p th:if="${user != null}" th:text="${user.getPhone1()}"></p>
-    <p th:if="${user != null}" th:text="${user.getPhone2()}"></p>
-    <p th:if="${user != null}" th:text="${user.getDateOfBirth()}"></p>
-    <p th:if="${user != null}" th:text="${user.getGender()}"></p>
-    <p th:if="${user != null}" th:text="${user.getUserType()}"></p>
-    <p th:if="${user != null}" th:text="${user.getEmail()}"></p>
-</div>
-
-
 <div class="edit-form" >
     <h1>Edytuj użytkownika</h1>
-    <form method="post" th:action="@{/admin/user/editUser/{userId}}">
-
-<!--<div>-->
-<!--    <label for="userId">ID użytkownika:</label>-->
-<!--    <input type="text" id="userId" name="userId" required>-->
-<!--</div>-->
+    <form method="post" th:action="@{/admin/user/editUser/{userId}(userId=${userId})}" th:object="${myUser}">
 
 <div>
     <label th:for="name">Name:</label>

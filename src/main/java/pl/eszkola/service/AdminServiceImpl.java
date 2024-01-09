@@ -96,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
         if (myUser.getUserType() == null) {
             throw new IllegalArgumentException("User Type cannot be empty");
         }
-        // ustawianie hasła jezeli jest puste
+
         if (StringUtils.isEmpty(myUser.getPassword())) {
             myUser.setPassword(generateRandomPassword());
         }
@@ -104,13 +104,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private String generateRandomPassword() {
-        // Dostępne znaki do wygenerowania hasła
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        // Długość generowanego hasła
         int length = 12;
-        // Inicjalizacja generatora liczb losowych
         Random random = new SecureRandom();
-        // tworzenie ciągu znaków o podanej długości length
         StringBuilder password = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             password.append(characters.charAt(random.nextInt(characters.length())));
@@ -121,7 +117,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void validateEmailFormat(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
         if (!email.matches(emailRegex)) {
             throw new IllegalArgumentException("Invalid email format");
         }
@@ -129,12 +124,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addSchoolClass(SchoolClass schoolClass) {
-        // waliduje parametry dla schoolClass
         validateSchoolClassFields(schoolClass);
-
-        // zapisuje
         schoolClassRepository.save(schoolClass);
-
     }
 
     private void validateSchoolClassFields(SchoolClass schoolClass) {

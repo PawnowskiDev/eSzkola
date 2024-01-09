@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isPasswordValid(String password) {
-        // sprawdzamy czy hasło zawiera co najmniej jedną dużą literę, jedną liczbę, co najmniej jeden znak specjalny i ma co najmniej 8 znaków
         return password.matches("(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}");
 
     }
