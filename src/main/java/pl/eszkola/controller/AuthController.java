@@ -35,7 +35,7 @@ public class AuthController {
 
         if (myUser != null) {
             if (passwordEncoder.matches(password, myUser.getPassword())) {
-                httpSession.setAttribute("userId", myUser.getId());
+                httpSession.setAttribute("userId", myUser.getUser_id());
                 return "redirect:" + determineRedirectPath(myUser);
             } else {
                 model.addAttribute("error", "Błędne hasło");

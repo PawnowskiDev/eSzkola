@@ -25,6 +25,9 @@ public class UserSubject {
         this.subject = subject;
     }
 
+    public UserSubject() {
+    }
+
     public void setUserSubjectId(Long userSubjectId) {
         this.userSubjectId = userSubjectId;
     }

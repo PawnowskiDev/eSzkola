@@ -37,15 +37,15 @@ public class AdminSubjectController {
 
     @GetMapping("/assignUserToSubject")
     public String showUserToSubjectForm(Model model) {
-        model.addAttribute("userSubject", adminService);
+        model.addAttribute("userSubject", new UserSubject());
         model.addAttribute("users", adminService.getAllUsers());
         model.addAttribute("subjects", adminService.getAllSubjects());
         return "admin/subject/assignUserToSubject";
     }
 
     @PostMapping("/assignUserToSubject")
-    public String assignUserToSubject(@RequestParam Long user, @RequestParam Long subject) {
-        adminService.assignUserToSubject(user, subject);
+    public String assignUserToSubject(@RequestParam Long myUser, @RequestParam Long subject) {
+        adminService.assignUserToSubject(myUser, subject);
         return "redirect:/admin/subject/assignUserToSubject?success";
     }
 

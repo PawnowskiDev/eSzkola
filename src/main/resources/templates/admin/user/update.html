@@ -77,7 +77,7 @@ form div:last-child {
 
 <div class="edit-form" >
     <h1>Edytuj użytkownika</h1>
-    <form method="post" th:action="@{/admin/user/editUser/{userId}(userId=${userId})}" th:object="${myUser}">
+    <form method="post" th:action="@{/admin/user/editUser/{userId}(userId=${userId})}" th:object="${user}">
 
 <div>
     <label th:for="name">Name:</label>

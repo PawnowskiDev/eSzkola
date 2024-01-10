@@ -49,17 +49,17 @@ public class AdminUserController {
         return "admin/user/update";
     }
 
-    @PostMapping("/editUser/{userId}")
+    @PostMapping("/editUser")
     public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
         userService.updateUser(userId, myUser);
         return "redirect:/admin/user/search";
     }
 
-    @GetMapping("/deleteUser/{userId}")
-    public String deleteUser (@PathVariable Long userId, Model model) {
+    @GetMapping("/deleteUser/{user_id}")
+    public String deleteUserForm (@PathVariable Long userId, Model model) {
         try {
-            MyUser myUser = userService.getUserById(userId);
-            model.addAttribute("user", myUser);
+            MyUser user = userService.getUserById(userId);
+            model.addAttribute("user", user);
             return "admin/user/delete";
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,8 +67,8 @@ public class AdminUserController {
         }
     }
 
-    @PostMapping("/deleteUser/{userID}")
-    public String deleteUserForm(@RequestParam Long userId) {
+    @PostMapping("/deleteUser")
+    public String deleteUser(@PathVariable Long userId) {
         try {
             userService.deleteUser(userId);
             return "redirect:/admin/user/search";
