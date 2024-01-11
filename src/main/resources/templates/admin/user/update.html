@@ -77,7 +77,7 @@ form div:last-child {
 
 <div class="edit-form" >
     <h1>Edytuj użytkownika</h1>
-    <form method="post" th:action="@{/admin/user/editUser/{userId}(userId=${userId})}" th:object="${user}">
+    <form method="post" th:action="@{'/admin/user/editUser/' + ${userId}}"  th:object="${myUser}">
 
 <div>
     <label th:for="name">Name:</label>
@@ -90,8 +90,8 @@ form div:last-child {
 </div>
 
 <div>
-    <label th:for="address">Address:</label>
-    <input type="text" id="address" name="address"  required>
+    <label th:for="adress">Address:</label>
+    <input type="text" id="adress" name="adress"  required>
 </div>
 
 <div>

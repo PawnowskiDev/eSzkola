@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final Map<Long, MyUser> userMap = new HashMap<>();
-    private long nextUserId = 1;
+
 
     @Override
     public List<MyUser> getAllUsers() {
@@ -35,20 +35,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long userId, MyUser myUser) {
+    public MyUser updateUser(Long userId, MyUser myUser) {
         if (userMap.containsKey(userId)) {
             myUser.setUser_id(userId);
             userMap.put(userId, myUser);
         }
+        return myUser;
     }
 
     @Override
     public void deleteUser(Long userId) {
-        userMap.remove(userId);
+        userRepository.deleteById(userId); // tutaj masz repository ze spring data, samo ci tworzy te methodydobra j
     }
 
+    // a tu już
+
     public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        this.userRepository  = userRepository;
     }
 
     @Override

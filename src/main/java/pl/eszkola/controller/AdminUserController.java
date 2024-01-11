@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.eszkola.model.MyUser;
 
 import pl.eszkola.service.AdminService;
@@ -25,7 +26,6 @@ public class AdminUserController {
         this.adminService = adminService;
     }
 
-
     @GetMapping("/addUser")
     public String addUserForm(Model model) {
         model.addAttribute("user", new MyUser());
@@ -39,7 +39,6 @@ public class AdminUserController {
         return "admin/user/add";
     }
 
-    // todo nie aktualizuje danych
 
     @GetMapping("/editUser/{userId}")
     public String editUserForm(@PathVariable Long userId, Model model) {
@@ -49,13 +48,19 @@ public class AdminUserController {
         return "admin/user/update";
     }
 
-    @PostMapping("/editUser")
-    public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser) {
-        userService.updateUser(userId, myUser);
-        return "redirect:/admin/user/search";
+    @PostMapping("/editUser/{userId}")
+    public String editUser(@PathVariable Long userId, @ModelAttribute MyUser myUser, Model model) {
+       try {
+           MyUser updatedUser = adminService.updateUser(userId, myUser);
+           model.addAttribute("updatedUser", updatedUser);
+           return "redirect:/admin/user/search";
+       } catch (Exception e) {
+           e.printStackTrace();
+           return "redirect:/admin/user/search";
+       }
     }
 
-    @GetMapping("/deleteUser/{user_id}")
+    @GetMapping("/deleteUser/{userId}")
     public String deleteUserForm (@PathVariable Long userId, Model model) {
         try {
             MyUser user = userService.getUserById(userId);
@@ -67,29 +72,22 @@ public class AdminUserController {
         }
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(@PathVariable Long userId) {
+    // a tu deleteUser
+
+    @PostMapping("/deleteUser/{userId}")
+    public String deleteUser(@PathVariable Long userId, RedirectAttributes redirectAttributes) {
         try {
             userService.deleteUser(userId);
+            redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully");
             return "redirect:/admin/user/search";
         } catch (Exception e) {
+
             e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete user");
             return "redirect:/admin/user/search";
         }
     }
 
-//    @GetMapping("/deleteUser/{userId}")
-//    public String deleteUser (@PathVariable Long userId, Model model) {
-//        MyUser myUser = userService.getUserById(userId);
-//        model.addAttribute("user", myUser);
-//        return "admin/user/delete";
-//    }
-//
-//    @PostMapping("/deleteUser/{userId}")
-//    public String deleteUserForm(@PathVariable Long userId) {
-//        userService.deleteUser(userId);
-//        return "redirect:/admin/user/search";
-//    }
 
     @GetMapping("/search")
     public String searchUsersForm() {

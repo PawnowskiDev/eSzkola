@@ -12,7 +12,7 @@ public interface UserService {
 
     void validateEmailFormat(String email);
 
-    void updateUserInfo(Long userId, String address, String phone1, String phone2);
+    void updateUserInfo(Long userId, String adress, String phone1, String phone2);
 
     MyUser getUserByPESEL(String pesel);
 
@@ -22,7 +22,7 @@ public interface UserService {
 
     MyUser getUserById(Long userId);
 
-    void updateUser(Long userId, MyUser myUser);
+    MyUser updateUser(Long userId, MyUser myUser);
 
     void deleteUser(Long userId);
 

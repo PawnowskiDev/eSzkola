@@ -25,7 +25,7 @@ public class MyUser {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Column(name = "adress")
+    @Column(name = "adress", nullable = true)
     private String adress;
     @Column(name = "pesel")
     private String pesel;
@@ -101,12 +101,15 @@ public class MyUser {
     }
 
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<SchoolClass> schoolClasses;
 
     @ManyToOne
     @JoinColumn(name = "schoolClass_id")
     private SchoolClass schoolClass;
+
+    @OneToMany(mappedBy = "myUser", cascade = CascadeType.ALL)
+    private List<UserSubject> userSubjects;
 
 
 }

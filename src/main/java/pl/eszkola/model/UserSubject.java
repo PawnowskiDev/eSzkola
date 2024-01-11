@@ -3,6 +3,8 @@ package pl.eszkola.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Getter
 @Entity
 @Table(name = "user_subject")
@@ -12,11 +14,11 @@ public class UserSubject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSubjectId;
 
-    @ManyToOne
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private MyUser myUser;
 
-    @ManyToOne
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 

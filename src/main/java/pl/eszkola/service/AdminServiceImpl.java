@@ -2,6 +2,7 @@ package pl.eszkola.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 import pl.eszkola.model.*;
 import pl.eszkola.repository.*;
@@ -43,18 +44,24 @@ public class AdminServiceImpl implements AdminService {
         userRepository.save(myUser);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long userId) {
+        try {
+            MyUser userToDelete = userRepository.findById(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        MyUser userToDelete = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+            userSubjectRepository.deleteById(userId);
 
-        userRepository.delete(userToDelete);
+            userRepository.delete(userToDelete);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Override
-    public void updateUser(Long userId, MyUser updatedUser) {
-
+    public MyUser updateUser(Long userId, MyUser updatedUser) {
         MyUser existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
@@ -69,8 +76,8 @@ public class AdminServiceImpl implements AdminService {
         existingUser.setGender(updatedUser.getGender());
         existingUser.setUserType(updatedUser.getUserType());
 
-
-        userRepository.save(existingUser);
+        MyUser updatedEntity = userRepository.save(existingUser);
+        return updatedEntity;
     }
 
     private void validateUserFields(MyUser myUser) {

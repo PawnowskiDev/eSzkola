@@ -67,8 +67,7 @@
 <h1>Czy na pewno chcesz usunąć użytkownika?</h1>
 
 <div>
-    <form method="post" th:action="@{/admin/user/deleteUser/{userId}}" th:object="${user}">
-        <input type="hidden" name="userId" th:value="${user.user_id}" />
+    <form method="post" th:action="@{'/admin/user/deleteUser/' + ${userId}}"  th:object="${myUser}">
     <button type="submit">Tak</button>
 </form>
 </div>
