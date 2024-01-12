@@ -14,11 +14,11 @@ public class UserSubject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSubjectId;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
     private MyUser myUser;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 

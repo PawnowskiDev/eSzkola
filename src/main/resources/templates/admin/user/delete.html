@@ -64,17 +64,17 @@
     </style>
 </head>
 <body>
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>    </div>
+</header>
+
 <h1>Czy na pewno chcesz usunąć użytkownika?</h1>
 
 <div>
     <form method="post" th:action="@{'/admin/user/deleteUser/' + ${userId}}"  th:object="${myUser}">
     <button type="submit">Tak</button>
 </form>
-</div>
-<div>
-    <a th:href="@{/admin/user/search}">
-        <button>Nie</button>
-    </a>
 </div>
 <footer class="footer">
     eSzkola 2023 PawnowskiDev

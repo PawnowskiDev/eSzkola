@@ -19,11 +19,11 @@ public class Subject {
     @Column(name = "subject_description", length = 255)
     private String subjectDescription;
 
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private MyUser myUser;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<UserSubject> userSubjects;
 
     public Subject() {

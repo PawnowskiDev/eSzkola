@@ -13,7 +13,7 @@ public interface TeacherService {
     MyUser getTeacherByName(String name);
 
 
-    List<SchoolClass> getTeacherClasses(MyUser teacher);
+    List<SchoolClass> getTeacherClasses(Long userId);
 
     List<MyUser> getStudentsInClass(SchoolClass schoolClass);
 

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import pl.eszkola.model.*;
 import pl.eszkola.repository.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +32,18 @@ public class TeacherServiceImpl implements TeacherService {
         return userRepository.findByName(name);
     }
 
+
     @Override
-    public List<SchoolClass> getTeacherClasses(MyUser teacher) {
-        return schoolClassRepository.findByTeacher(teacher);
+    public List<SchoolClass> getTeacherClasses(Long userId) {
+        Optional<MyUser> userOptional = userRepository.findById(userId);
+
+        if(userOptional.isPresent()) {
+            MyUser teacher = userOptional.get();
+            return schoolClassRepository.findByTeacher(teacher);
+        } else {
+            return Collections.emptyList();
+        }
+
     }
 
     @Override

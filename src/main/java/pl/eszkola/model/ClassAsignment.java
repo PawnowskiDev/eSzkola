@@ -7,11 +7,11 @@ import org.hibernate.usertype.UserType;
 @Table(name = "class_assignment")
 public class ClassAsignment {
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "class_id", nullable = false)
     private SchoolClass schoolClass;
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
     private MyUser  myUser;
 

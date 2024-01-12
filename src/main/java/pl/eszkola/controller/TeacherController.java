@@ -33,7 +33,7 @@ public class TeacherController {
 
         if (userId != null) {
             MyUser teacher = userService.getUserById(userId);
-            List<SchoolClass> teacherClasses = teacherService.getTeacherClasses(teacher);
+            List<SchoolClass> teacherClasses = teacherService.getTeacherClasses(userId);
             model.addAttribute("teacherClasses", teacherClasses);
             model.addAttribute("userId", userId);
 

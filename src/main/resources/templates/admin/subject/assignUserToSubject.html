@@ -73,7 +73,10 @@ form div:last-child {
 </style>
 </head>
 <body>
-
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>    </div>
+</header>
 <h2>Przypisz Użytkownika do Przedmiotu</h2>
 <form th:action="@{/admin/subject/assignUserToSubject}" th:object="${userSubject}" method="post">
 
@@ -97,6 +100,7 @@ form div:last-child {
         <button type="submit">Przypisz</button>
     </div>
 </form>
+
 <footer class="footer">
     eSzkola 2023 PawnowskiDev
 </footer>

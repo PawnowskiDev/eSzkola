@@ -75,10 +75,14 @@ form div:last-child {
 
 </head>
 <body>
-
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>
+    </div>
+</header>
 <h1>Przypisz użytkownika do Klasy</h1>
 
-<form th:action="@{/admin/assign/userToSubject}" th:object="${userSchoolClass}" method="post">
+<form th:action="@{/admin/schoolClass/userToClass}" th:object="${userClass}" method="post">
 
     <div>
         <label for="user">User</label>
@@ -89,7 +93,7 @@ form div:last-child {
 
     <div>
         <label for="schoolClass">Class</label>
-        <select id="schoolClass" name="classId">
+        <select id="schoolClass" name="schoolClass">
             <option th:each="schoolClass : ${schoolClasses}" th:value="${schoolClass.getClassId()}" th:text="${schoolClass.getClassName()}"></option>
         </select>
     </div>
@@ -97,6 +101,7 @@ form div:last-child {
     <div>
         <button type="submit">Przypisz użytkownika do przedmiotu</button>
     </div>
+
 
 </form>
 

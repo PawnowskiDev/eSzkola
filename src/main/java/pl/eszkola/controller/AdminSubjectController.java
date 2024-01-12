@@ -44,8 +44,8 @@ public class AdminSubjectController {
     }
 
     @PostMapping("/assignUserToSubject")
-    public String assignUserToSubject(@RequestParam Long myUser, @RequestParam Long subject) {
-        adminService.assignUserToSubject(myUser, subject);
+    public String assignUserToSubject(@RequestParam Long userId, @RequestParam Long subjectId) {
+        adminService.assignUserToSubject(userId, subjectId);
         return "redirect:/admin/subject/assignUserToSubject?success";
     }
 

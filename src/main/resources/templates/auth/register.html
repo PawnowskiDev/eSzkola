@@ -75,6 +75,13 @@ form div:last-child {
      </style>
 </head>
 <body>
+
+<header>
+    <div>
+        <a th:href="@{/}">Strona głowna</a>
+    </div>
+</header>
+
     <h1>Rejestracja</h1>
 <form method="post" th:object="${myUser}" name="@{/auth/register}">
 

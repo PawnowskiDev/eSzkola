@@ -15,12 +15,12 @@ public class Attendance {
     private Long attendanceId;
 
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
     private MyUser myUser;
 
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "schoolClass_id", nullable = false)
     private SchoolClass schoolClass;
 

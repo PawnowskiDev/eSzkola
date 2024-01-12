@@ -72,6 +72,12 @@ form div:last-child {
     </style>
 </head>
 <body>
+
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>    </div>
+</header>
+
 <h1>Dodaj klasę szkolną</h1>
 <form method="post" th:object="${schoolClass}" th:action="@{/admin/schoolClass/addSchoolClass}">
     <div>
@@ -95,6 +101,11 @@ form div:last-child {
     <div>
         <button type="submit">Dodaj klasę szkolną</button>
     </div>
+
+    <div th:if="${param.success}">
+        <p style="color: green; margin-top: 10px;">${successMessage}</p>
+    </div>
+
 </form>
 <footer class="footer">
     eSzkola 2023 PawnowskiDev

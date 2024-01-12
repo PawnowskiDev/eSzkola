@@ -76,14 +76,12 @@
 <h2>Panel Nauczyciela</h2>
 
 <h3>Twoje Klasy:</h3>
-<div>
-    <form action="/teacher/classDetails" method="post">
-        <label for="schoolClassId">Wybierz klasę:</label>
-        <select id="schoolClassId" name="schoolClassId">
-            <option th:each="schoolClass : ${allClasses}" th:value="${schoolClass.getClassId()}" th:text="${schoolClass.getClassName()}"></option>
-        </select>
-        <br>
-        <button type="submit">Wyświetl szczegóły</button>
+<div th:each="schoolClass : ${schoolClasses}">
+    <h3>Nazwa Klasy: <span th:text="${schoolClass.className}"></span></h3>
+    <p>Liczba Uczniów: <span th:text="${schoolClass.students.size()}"></span></p>
+    <form th:action="@{'/teacher/classDetails'}" method="post">
+        <input type="hidden" name="schoolClassId" th:value="${schoolClass.classId}" />
+        <button type="submit">Szczegóły</button>
     </form>
 </div>
 <footer class="footer">

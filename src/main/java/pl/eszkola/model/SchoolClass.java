@@ -69,12 +69,12 @@ public class SchoolClass {
         this.grades = grades;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", insertable = false)
     private MyUser teacher;
-    @OneToMany(mappedBy = "schoolClass")
+    @OneToMany(mappedBy = "schoolClass", cascade = CascadeType.ALL)
     private List<Grade> grades;
 
-    @OneToMany(mappedBy = "schoolClass")
+    @OneToMany(mappedBy = "schoolClass", cascade = CascadeType.ALL)
     private List<MyUser> students;
 }

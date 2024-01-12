@@ -198,8 +198,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Object getAllClass() {
-        return null;
+    public List<SchoolClass> getAllClass() {
+        return schoolClassRepository.findAll();
     }
 
     @Override

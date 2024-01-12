@@ -104,7 +104,7 @@ public class MyUser {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<SchoolClass> schoolClasses;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "schoolClass_id")
     private SchoolClass schoolClass;
 

@@ -74,7 +74,10 @@ form div:last-child {
     </style>
 </head>
 <body>
-
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>    </div>
+</header>
 <div class="edit-form" >
     <h1>Edytuj użytkownika</h1>
     <form method="post" th:action="@{'/admin/user/editUser/' + ${userId}}"  th:object="${myUser}">

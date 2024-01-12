@@ -29,7 +29,7 @@ public interface AdminService {
 
     void assignUserToSubject(Long userId, Long subjectId);
 
-    Object getAllClass();
+    List <SchoolClass> getAllClass();
 
     void assignUserToClass(Long user, Long subject);
 }

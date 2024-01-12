@@ -12,7 +12,7 @@ import pl.eszkola.repository.SubjectRepository;
 import pl.eszkola.service.AdminService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/schoolClass")
 public class AdminSchoolController {
 
     private final SchoolClassRepository schoolClassRepository;
@@ -26,30 +26,31 @@ public class AdminSchoolController {
     }
 
 
-    @GetMapping("/schoolClass/addSchoolClass")
+    @GetMapping("/addSchoolClass")
     public String showAddSchoolClass (Model model) {
         model.addAttribute("schoolClass", new SchoolClass());
         return "admin/schoolClass/addSchoolClass";
     }
 
-    @PostMapping("/schoolClass/addSchoolClass")
-    public String addSchoolClass (@ModelAttribute SchoolClass schoolClass) {
+    @PostMapping("/addSchoolClass")
+    public String addSchoolClass (@ModelAttribute SchoolClass schoolClass, Model model) {
         schoolClassRepository.save(schoolClass);
-        return "redirect:admin/schoolClass/addSchoolClass?success";
+        model.addAttribute("successMessage", "Klasa szkolna dodana pomyślnie");
+        return "redirect:/admin/schoolClass/addSchoolClass";
     }
 
-    @GetMapping("/schoolClass/userToClass")
+    @GetMapping("/userToClass")
     public String showUserToClassForm(Model model) {
-        model.addAttribute("userSubject", adminService);
+        model.addAttribute("userClass", adminService);
         model.addAttribute("users", adminService.getAllUsers());
-        model.addAttribute("class", adminService.getAllClass());
+        model.addAttribute("schoolClasses", adminService.getAllClass());
         return "admin/schoolClass/userToClass";
     }
 
-    @PostMapping("/schoolClass/userToClass")
-    public String assignUserToClass(@RequestParam Long user, @RequestParam Long schoolCLass) {
-        adminService.assignUserToClass(user, schoolCLass);
-        return "redirect:/admin/schoolClass/userToClass?success";
+    @PostMapping("/userToClass")
+    public String assignUserToClass(@RequestParam Long userId, @RequestParam Long schoolClass) {
+        adminService.assignUserToClass(userId, schoolClass);
+        return "redirect:/admin/schoolClass/userToClass";
     }
 
 

@@ -12,12 +12,12 @@ public class UserSchoolClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private MyUser user;
 
-    @ManyToOne
-    @JoinColumn(name = "school_class_id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "school_class_id", nullable = false)
     private SchoolClass schoolClass;
 
 

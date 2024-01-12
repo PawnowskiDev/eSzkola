@@ -74,6 +74,10 @@ margin-bottom: 0;
     </style>
 </head>
 <body>
+<header>
+    <div>
+        <a th:href="@{'/admin/dashboard'}">Panel Admina</a>    </div>
+</header>
 <h1>Dodaj użytkownika</h1>
 
 <form method="post" th:object="${myUser}" th:action="@{/admin/user/addUser}">
